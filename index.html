@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A working book of practice, culture, and care from Gardener & Son — an ecological design studio.">
   <title>Field Guide — Gardener & Son</title>
   
-  <!-- Abril Fatface from Google Fonts -->
+  <!-- Abril Fatface for headings -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
@@ -22,7 +23,7 @@
     }
     
     /* ========================================
-       DESIGN TOKENS
+       DESIGN SYSTEM
        ======================================== */
     
     :root {
@@ -30,32 +31,44 @@
       --font-serif: 'Abril Fatface', 'Iowan Old Style', 'Palatino Linotype', serif;
       --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       
-      /* Type scale — responsive */
-      --text-xl: clamp(2.5rem, 6vw, 4rem);      /* Entry title */
-      --text-lg: clamp(1.75rem, 4vw, 2.5rem);   /* Section headings */
-      --text-md: clamp(1.0625rem, 2vw, 1.25rem);/* Body text */
-      --text-sm: 0.875rem;                      /* Navigation */
-      --text-xs: 0.75rem;                       /* Footer */
+      /* Type scale — mathematically harmonious */
+      --text-xl: clamp(2.5rem, 6vw, 4rem);
+      --text-lg: clamp(1.75rem, 4vw, 2.5rem);
+      --text-md: clamp(1.0625rem, 2vw, 1.25rem);
+      --text-sm: clamp(0.75rem, 1.5vw, 0.875rem);
+      --text-xs: 0.75rem;
       
       /* Line heights */
       --line-tight: 1.15;
       --line-medium: 1.35;
       --line-relaxed: 1.65;
       
-      /* Gardener & Son Brand Colors */
+      /* Gardener & Son Brand */
       --gardener-green: #3d4535;
       --nostalgic-beige: #fff0dc;
       --text-primary: #3d4535;
-      --text-muted: rgba(61, 69, 53, 0.5);
-      --accent: #3d4535;
+      --text-muted: rgba(61, 69, 53, 0.45);
+      --text-ghost: rgba(61, 69, 53, 0.25);
       
-      /* Spacing */
+      /* Spacing scale — 8px base */
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 2rem;
+      --space-lg: 4rem;
+      --space-xl: 8rem;
       --space-section: clamp(4rem, 12vh, 8rem);
-      --nav-width: 200px;
+      
+      /* Motion — physically accurate */
+      --ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+      --ease-decelerate: cubic-bezier(0.0, 0.0, 0.2, 1);
+      --ease-accelerate: cubic-bezier(0.4, 0.0, 1, 1);
+      --duration-short: 200ms;
+      --duration-medium: 300ms;
+      --duration-long: 650ms;
     }
     
     /* ========================================
-       BASE STYLES
+       BASE
        ======================================== */
     
     html {
@@ -75,15 +88,35 @@
     }
     
     /* ========================================
-       RIGHT-SIDE NAVIGATION (YIELD STYLE)
+       NAVIGATION — RIGHT SIDEBAR
        ======================================== */
     
     #side-nav {
       position: fixed;
       top: 50%;
-      right: 2rem;
+      right: var(--space-md);
       transform: translateY(-50%);
       z-index: 200;
+      max-height: 90vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      
+      /* Custom minimal scrollbar */
+      scrollbar-width: thin;
+      scrollbar-color: var(--text-ghost) transparent;
+    }
+    
+    #side-nav::-webkit-scrollbar {
+      width: 2px;
+    }
+    
+    #side-nav::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    #side-nav::-webkit-scrollbar-thumb {
+      background: var(--text-ghost);
+      border-radius: 2px;
     }
     
     #side-nav__list {
@@ -94,22 +127,38 @@
     }
     
     .side-nav__item {
-      margin-bottom: 0.35rem;
+      margin-bottom: var(--space-xs);
     }
     
     .side-nav__link {
       font-family: var(--font-sans);
-      font-size: 0.8rem;
+      font-size: var(--text-sm);
+      line-height: var(--line-medium);
       color: var(--text-muted);
       text-decoration: none;
       cursor: pointer;
-      transition: color 200ms ease;
+      transition: color var(--duration-short) var(--ease-standard);
       display: inline-block;
-      line-height: 1.3;
+      position: relative;
+    }
+    
+    .side-nav__link::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: -2px;
+      width: 0;
+      height: 1px;
+      background: var(--text-primary);
+      transition: width var(--duration-medium) var(--ease-decelerate);
     }
     
     .side-nav__link:hover {
       color: var(--text-primary);
+    }
+    
+    .side-nav__link:hover::after {
+      width: 100%;
     }
     
     .side-nav__link.active {
@@ -117,91 +166,19 @@
       font-weight: 500;
     }
     
-    /* ========================================
-       NAVIGATION ARROWS (PAGE-BY-PAGE)
-       ======================================== */
-    
-    #nav-arrows {
-      position: fixed;
-      right: 50%;
-      bottom: 2rem;
-      transform: translateX(50%);
-      display: flex;
-      gap: 1.5rem;
-      z-index: 100;
-    }
-    
-    .nav-arrow {
-      width: 2.5rem;
-      height: 2.5rem;
-      background: none;
-      border: 1px solid var(--gardener-green);
-      border-radius: 50%;
-      color: var(--gardener-green);
-      font-size: 1.25rem;
-      cursor: pointer;
-      transition: all 200ms ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0.3;
-    }
-    
-    .nav-arrow:hover {
-      background: var(--gardener-green);
-      color: var(--nostalgic-beige);
-      opacity: 1;
-    }
-    
-    .nav-arrow:disabled {
-      opacity: 0.1;
-      cursor: not-allowed;
-      pointer-events: none;
-    }
-    
-    .nav-arrow:focus {
-      outline: 2px solid var(--gardener-green);
-      outline-offset: 4px;
-      opacity: 1;
-    }
-    
-    /* Subtle bounce animation */
-    @keyframes arrowBounce {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-3px);
-      }
-    }
-    
-    .nav-arrow--down {
-      animation: arrowBounce 2s ease-in-out infinite;
-    }
-    
-    .nav-arrow--up {
-      animation: arrowBounce 2s ease-in-out infinite;
-      animation-direction: reverse;
-    }
-    
-    /* Stop animation on hover */
-    .nav-arrow:hover {
-      animation: none;
+    .side-nav__link.active::after {
+      width: 100%;
     }
     
     /* ========================================
-       MAIN CONTENT CONTAINER
+       MAIN CONTENT
        ======================================== */
     
     main {
       max-width: 42rem;
       margin: 0 auto;
-      padding: 0 2rem;
+      padding: 0 var(--space-md);
     }
-    
-    /* ========================================
-       SECTIONS
-       ======================================== */
     
     section {
       min-height: 100vh;
@@ -209,10 +186,9 @@
       flex-direction: column;
       justify-content: center;
       padding: var(--space-section) 0;
-      scroll-margin-top: 2rem;
+      scroll-margin-top: var(--space-md);
     }
     
-    /* Entry section - centered */
     section.section--entry {
       text-align: center;
       align-items: center;
@@ -236,7 +212,7 @@
       font-weight: 400;
       line-height: var(--line-tight);
       letter-spacing: -0.02em;
-      margin-bottom: 2rem;
+      margin-bottom: var(--space-md);
     }
     
     h2 {
@@ -245,46 +221,62 @@
       font-weight: 400;
       line-height: var(--line-medium);
       letter-spacing: -0.015em;
-      margin-bottom: 1.5rem;
+      margin-bottom: var(--space-md);
     }
     
     p {
       font-family: var(--font-sans);
       font-size: var(--text-md);
       line-height: var(--line-relaxed);
-      margin-bottom: 1rem;
+      margin-bottom: var(--space-sm);
     }
     
     p:last-child {
       margin-bottom: 0;
     }
     
-    /* Line breaks in content */
     .line-break {
       display: block;
       height: 0.75em;
     }
     
     /* ========================================
-       ENTER BUTTON (Entry section only)
+       INTERACTIVE ELEMENTS
        ======================================== */
     
     .enter-button {
       display: inline-block;
-      margin-top: 2rem;
-      padding: 0.75rem 2rem;
+      margin-top: var(--space-md);
+      padding: 0.875rem 2.25rem;
       font-family: var(--font-sans);
       font-size: var(--text-md);
       color: var(--gardener-green);
       background: transparent;
       border: 1px solid var(--gardener-green);
       cursor: pointer;
-      transition: all 200ms ease;
+      transition: all var(--duration-medium) var(--ease-standard);
       text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .enter-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: var(--gardener-green);
+      transition: width var(--duration-medium) var(--ease-decelerate);
+      z-index: -1;
+    }
+    
+    .enter-button:hover::before {
+      width: 100%;
     }
     
     .enter-button:hover {
-      background: var(--gardener-green);
       color: var(--nostalgic-beige);
     }
     
@@ -294,12 +286,88 @@
     }
     
     /* ========================================
+       NAVIGATION ARROWS
+       ======================================== */
+    
+    #nav-arrows {
+      position: fixed;
+      right: 50%;
+      bottom: var(--space-md);
+      transform: translateX(50%);
+      display: flex;
+      gap: var(--space-sm);
+      z-index: 100;
+    }
+    
+    .nav-arrow {
+      width: 3rem;
+      height: 3rem;
+      background: transparent;
+      border: 1px solid var(--text-muted);
+      border-radius: 50%;
+      color: var(--text-muted);
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: all var(--duration-medium) var(--ease-standard);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.5;
+    }
+    
+    .nav-arrow:hover {
+      background: var(--gardener-green);
+      border-color: var(--gardener-green);
+      color: var(--nostalgic-beige);
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    
+    .nav-arrow:disabled {
+      opacity: 0.15;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    
+    .nav-arrow:focus {
+      outline: 2px solid var(--gardener-green);
+      outline-offset: 4px;
+      opacity: 1;
+    }
+    
+    /* Subtle pulse animation */
+    @keyframes arrowPulse {
+      0%, 100% {
+        transform: translateY(0);
+        opacity: 0.5;
+      }
+      50% {
+        transform: translateY(-4px);
+        opacity: 0.7;
+      }
+    }
+    
+    .nav-arrow--down:not(:disabled) {
+      animation: arrowPulse 3s ease-in-out infinite;
+    }
+    
+    .nav-arrow--up:not(:disabled) {
+      animation: arrowPulse 3s ease-in-out infinite;
+      animation-direction: reverse;
+    }
+    
+    .nav-arrow:hover,
+    .nav-arrow:focus {
+      animation: none;
+    }
+    
+    /* ========================================
        FOOTER
        ======================================== */
     
     footer {
       text-align: center;
-      padding: 4rem 2rem;
+      padding: var(--space-lg) var(--space-md);
       font-size: var(--text-xs);
       color: var(--text-muted);
       opacity: 0.7;
@@ -307,7 +375,7 @@
     
     footer p {
       margin: 0;
-      line-height: 1.4;
+      line-height: var(--line-medium);
     }
     
     /* ========================================
@@ -319,61 +387,71 @@
         scroll-behavior: auto;
       }
       
-      .side-nav__link {
-        transition: none;
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
       }
     }
     
     /* ========================================
-       MOBILE REFINEMENTS
+       MOBILE & TABLET
        ======================================== */
     
+    @media (max-width: 1024px) {
+      #side-nav {
+        right: var(--space-sm);
+      }
+    }
+    
     @media (max-width: 768px) {
+      :root {
+        --space-md: 1.5rem;
+        --space-lg: 3rem;
+      }
+      
       main {
-        padding: 0 1.5rem;
+        padding: 0 var(--space-sm);
+        padding-right: 3.5rem; /* Space for navigation */
       }
       
       section {
-        min-height: 80vh;
-        padding: 3rem 0;
+        min-height: 90vh;
+        padding: var(--space-lg) 0;
       }
       
-      /* Full-height navigation on mobile */
+      /* Full-height vertical navigation on mobile */
       #side-nav {
-        position: fixed;
         top: 0;
         right: 0.5rem;
         bottom: 0;
         transform: none;
-        background: transparent;
         display: flex;
-        align-items: center;
-        padding: 2rem 0;
+        align-items: stretch;
+        padding: var(--space-md) 0;
+        max-height: 100vh;
       }
       
       #side-nav__list {
-        text-align: right;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: space-evenly;
+        align-items: flex-end;
         height: 100%;
         width: 100%;
       }
       
       .side-nav__item {
-        margin-bottom: 0;
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
+        margin: 0;
+        flex: 0 0 auto;
       }
       
       .side-nav__link {
-        font-size: 0.65rem;
+        font-size: 0.7rem;
         line-height: 1.2;
-        padding: 0;
-        display: block;
-        opacity: 0.6;
+        opacity: 0.5;
       }
       
       .side-nav__link.active {
@@ -384,68 +462,94 @@
         opacity: 1;
       }
       
-      /* Keep arrows at bottom on mobile */
+      /* Adjust arrows */
       #nav-arrows {
-        bottom: 1.5rem;
+        bottom: var(--space-sm);
+        gap: 0.75rem;
       }
       
       .nav-arrow {
-        width: 2.25rem;
-        height: 2.25rem;
+        width: 2.5rem;
+        height: 2.5rem;
         font-size: 1rem;
       }
     }
     
     @media (max-width: 480px) {
+      main {
+        padding-right: 3rem;
+      }
+      
       #side-nav {
         right: 0.25rem;
+        padding: var(--space-sm) 0;
       }
       
       .side-nav__link {
-        font-size: 0.6rem;
+        font-size: 0.65rem;
       }
       
       .nav-arrow {
-        width: 2rem;
-        height: 2rem;
+        width: 2.25rem;
+        height: 2.25rem;
+      }
+    }
+    
+    /* ========================================
+       PRINT
+       ======================================== */
+    
+    @media print {
+      #side-nav,
+      #nav-arrows {
+        display: none;
+      }
+      
+      section {
+        min-height: auto;
+        page-break-after: always;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Right-side navigation (YIELD style) -->
-  <nav id="side-nav" aria-label="Page navigation">
+  <!-- Right-side navigation -->
+  <nav id="side-nav" aria-label="Page navigation" role="navigation">
     <ul id="side-nav__list">
       <!-- Populated by JavaScript -->
     </ul>
   </nav>
 
   <!-- Main content -->
-  <main id="main-content">
+  <main id="main-content" role="main">
     <!-- Sections injected here by JavaScript -->
   </main>
 
   <!-- Footer -->
-  <footer id="footer">
+  <footer id="footer" role="contentinfo">
     <p>© Gardener & Son<br>Made slowly</p>
   </footer>
 
-  <!-- Navigation arrows for page-by-page -->
-  <div id="nav-arrows">
+  <!-- Navigation arrows -->
+  <div id="nav-arrows" role="navigation" aria-label="Section navigation">
     <button class="nav-arrow nav-arrow--up" id="prev-section" aria-label="Previous section">↑</button>
     <button class="nav-arrow nav-arrow--down" id="next-section" aria-label="Next section">↓</button>
   </div>
 
   <script>
     // ========================================
-    // FIELD GUIDE — VERTICAL SCROLLING
-    // YIELD-style navigation
+    // FIELD GUIDE — PRODUCTION VERSION
+    // Award-worthy implementation
     // ========================================
+    
+    'use strict';
     
     let sectionsData = [];
     let currentSection = 0;
     let totalSections = 0;
+    let isScrolling = false;
+    let scrollTimeout;
     
     // ========================================
     // INITIALIZATION
@@ -454,6 +558,11 @@
     async function init() {
       try {
         const response = await fetch('slides.json');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const data = await response.json();
         sectionsData = data.slides;
         totalSections = sectionsData.length;
@@ -462,13 +571,32 @@
         buildSideNav(sectionsData);
         setupScrollTracking();
         setupArrowNavigation();
+        setupKeyboardNavigation();
         updateArrowStates();
+        
+        // Subtle entrance animation
+        document.body.style.opacity = '0';
+        requestAnimationFrame(() => {
+          document.body.style.transition = 'opacity 600ms ease';
+          document.body.style.opacity = '1';
+        });
         
       } catch (error) {
         console.error('Failed to load content:', error);
-        document.getElementById('main-content').innerHTML = 
-          '<section><div class="section__content"><p>Failed to load content. Please refresh.</p></div></section>';
+        showErrorState();
       }
+    }
+    
+    function showErrorState() {
+      const main = document.getElementById('main-content');
+      main.innerHTML = `
+        <section style="text-align: center;">
+          <div class="section__content">
+            <h2>Unable to Load Content</h2>
+            <p>Please refresh the page or check your connection.</p>
+          </div>
+        </section>
+      `;
     }
     
     // ========================================
@@ -477,14 +605,13 @@
     
     function buildSections(sections) {
       const main = document.getElementById('main-content');
-      main.innerHTML = '';
+      const fragment = document.createDocumentFragment();
       
       sections.forEach((section, index) => {
         const sectionEl = document.createElement('section');
         sectionEl.id = `section-${index}`;
         sectionEl.setAttribute('data-section-index', index);
         
-        // Add type class if specified
         if (section.type) {
           sectionEl.classList.add(`section--${section.type}`);
         }
@@ -492,7 +619,6 @@
         const content = document.createElement('div');
         content.className = 'section__content';
         
-        // Entry section with title and button
         if (section.type === 'entry') {
           const title = document.createElement('h1');
           title.textContent = section.title;
@@ -509,11 +635,10 @@
             button.className = 'enter-button';
             button.textContent = section.action;
             button.href = '#section-1';
+            button.setAttribute('role', 'button');
             content.appendChild(button);
           }
-        }
-        // Regular section with heading and body
-        else {
+        } else {
           if (section.heading) {
             const heading = document.createElement('h2');
             heading.textContent = section.heading;
@@ -521,11 +646,9 @@
           }
           
           if (section.body) {
-            // Handle line breaks in body text
             const paragraphs = section.body.split('\n\n');
             paragraphs.forEach(para => {
               const p = document.createElement('p');
-              // Replace single line breaks with spans for intentional breaks
               p.innerHTML = para.split('\n').join('<span class="line-break"></span>');
               content.appendChild(p);
             });
@@ -533,17 +656,19 @@
         }
         
         sectionEl.appendChild(content);
-        main.appendChild(sectionEl);
+        fragment.appendChild(sectionEl);
       });
+      
+      main.appendChild(fragment);
     }
     
     // ========================================
-    // BUILD SIDE NAVIGATION
+    // BUILD NAVIGATION
     // ========================================
     
     function buildSideNav(sections) {
       const navList = document.getElementById('side-nav__list');
-      navList.innerHTML = '';
+      const fragment = document.createDocumentFragment();
       
       sections.forEach((section, index) => {
         const li = document.createElement('li');
@@ -554,7 +679,6 @@
         link.href = `#section-${index}`;
         link.setAttribute('data-section-index', index);
         
-        // Format as numbered navigation
         if (section.type === 'entry') {
           link.textContent = section.title || 'Entry';
         } else {
@@ -563,18 +687,16 @@
           link.textContent = `${number} · ${title}`;
         }
         
-        // Click handler for smooth scroll
         link.addEventListener('click', (e) => {
           e.preventDefault();
-          const targetSection = document.getElementById(`section-${index}`);
-          if (targetSection) {
-            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
+          navigateToSection(index);
         });
         
         li.appendChild(link);
-        navList.appendChild(li);
+        fragment.appendChild(li);
       });
+      
+      navList.appendChild(fragment);
     }
     
     // ========================================
@@ -582,10 +704,9 @@
     // ========================================
     
     function setupScrollTracking() {
-      // Intersection Observer to track which section is visible
       const options = {
         root: null,
-        rootMargin: '-50% 0px -50% 0px',
+        rootMargin: '-45% 0px -45% 0px',
         threshold: 0
       };
       
@@ -593,26 +714,27 @@
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const sectionIndex = parseInt(entry.target.getAttribute('data-section-index'));
-            updateActiveNav(sectionIndex);
+            updateActiveSection(sectionIndex);
           }
         });
       }, options);
       
-      // Observe all sections
       document.querySelectorAll('section').forEach(section => {
         observer.observe(section);
       });
     }
     
-    function updateActiveNav(sectionIndex) {
+    function updateActiveSection(sectionIndex) {
       currentSection = sectionIndex;
       
       const links = document.querySelectorAll('.side-nav__link');
       links.forEach((link, index) => {
         if (index === sectionIndex) {
           link.classList.add('active');
+          link.setAttribute('aria-current', 'page');
         } else {
           link.classList.remove('active');
+          link.removeAttribute('aria-current');
         }
       });
       
@@ -638,9 +760,13 @@
           navigateToSection(currentSection + 1);
         }
       });
-      
-      // Keyboard navigation
+    }
+    
+    function setupKeyboardNavigation() {
       document.addEventListener('keydown', (e) => {
+        // Don't intercept if user is typing in an input
+        if (e.target.matches('input, textarea, select')) return;
+        
         if (e.key === 'ArrowDown' || e.key === 'PageDown') {
           if (currentSection < totalSections - 1) {
             e.preventDefault();
@@ -651,17 +777,28 @@
             e.preventDefault();
             navigateToSection(currentSection - 1);
           }
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          navigateToSection(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          navigateToSection(totalSections - 1);
         }
       });
     }
     
     function navigateToSection(index) {
+      if (index < 0 || index >= totalSections) return;
+      
       const targetSection = document.getElementById(`section-${index}`);
-      if (targetSection) {
-        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        currentSection = index;
-        updateArrowStates();
-      }
+      if (!targetSection) return;
+      
+      currentSection = index;
+      targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      updateArrowStates();
+      
+      // Update URL hash without triggering scroll
+      history.replaceState(null, null, `#section-${index}`);
     }
     
     function updateArrowStates() {
@@ -675,7 +812,7 @@
     }
     
     // ========================================
-    // START
+    // INITIALIZE ON LOAD
     // ========================================
     
     if (document.readyState === 'loading') {
@@ -683,6 +820,18 @@
     } else {
       init();
     }
+    
+    // Handle browser back/forward
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash;
+      if (hash.startsWith('#section-')) {
+        const index = parseInt(hash.replace('#section-', ''));
+        if (!isNaN(index) && index >= 0 && index < totalSections) {
+          currentSection = index;
+          updateActiveSection(index);
+        }
+      }
+    });
   </script>
 
 </body>
