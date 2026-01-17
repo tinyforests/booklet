@@ -331,7 +331,6 @@
     @media (max-width: 768px) {
       main {
         padding: 0 1.5rem;
-        padding-right: 4.5rem; /* Space for navigation */
       }
       
       section {
@@ -339,25 +338,20 @@
         padding: 3rem 0;
       }
       
-      /* Improve mobile navigation readability */
+      /* Position navigation to fit between text lines */
       #side-nav {
         position: fixed;
         top: 1rem;
         right: 0.5rem;
         bottom: auto;
         transform: none;
-        background: rgba(255, 240, 220, 0.95);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        padding: 0.75rem 0.5rem;
-        border-radius: 4px;
+        background: transparent;
         max-height: calc(100vh - 8rem);
         overflow-y: auto;
-        box-shadow: 0 2px 8px rgba(61, 69, 53, 0.1);
-        transition: opacity 300ms ease, transform 300ms ease;
+        line-height: var(--line-relaxed); /* Match body text line height */
       }
       
-      /* Hide scrollbar but keep functionality */
+      /* Hide scrollbar */
       #side-nav::-webkit-scrollbar {
         width: 0;
         display: none;
@@ -368,44 +362,23 @@
       }
       
       .side-nav__item {
-        margin-bottom: 0.25rem;
+        margin-bottom: 0; /* Remove margin - use line-height instead */
       }
       
       .side-nav__link {
-        font-size: 0.7rem;
-        padding: 0.15rem 0.25rem;
+        font-size: 0.65rem;
+        line-height: var(--line-relaxed); /* Match body text spacing */
+        padding: 0;
         display: block;
+        opacity: 0.6; /* Subtle so it doesn't compete with content */
       }
       
-      /* Optional: Add toggle button for mobile menu */
-      #nav-toggle {
-        position: fixed;
-        top: 0.75rem;
-        right: 0.5rem;
-        width: 2rem;
-        height: 2rem;
-        background: var(--gardener-green);
-        border: none;
-        border-radius: 50%;
-        color: var(--nostalgic-beige);
-        font-size: 0.875rem;
-        cursor: pointer;
-        z-index: 201;
-        display: none; /* Hidden by default, can be enabled */
-        align-items: center;
-        justify-content: center;
-        opacity: 0.7;
-        transition: opacity 200ms ease;
-      }
-      
-      #nav-toggle:hover {
+      .side-nav__link.active {
         opacity: 1;
       }
       
-      #side-nav.hidden {
-        opacity: 0;
-        transform: translateX(100%);
-        pointer-events: none;
+      .side-nav__link:hover {
+        opacity: 1;
       }
       
       /* Keep arrows at bottom on mobile */
@@ -421,18 +394,12 @@
     }
     
     @media (max-width: 480px) {
-      main {
-        padding-right: 4rem;
-      }
-      
       #side-nav {
         right: 0.25rem;
-        padding: 0.5rem 0.35rem;
       }
       
       .side-nav__link {
-        font-size: 0.65rem;
-        padding: 0.1rem 0.2rem;
+        font-size: 0.6rem;
       }
       
       .nav-arrow {
@@ -450,9 +417,6 @@
       <!-- Populated by JavaScript -->
     </ul>
   </nav>
-  
-  <!-- Optional: Mobile menu toggle (uncomment to enable) -->
-  <!-- <button id="nav-toggle" aria-label="Toggle menu">☰</button> -->
 
   <!-- Main content -->
   <main id="main-content">
@@ -495,7 +459,6 @@
         buildSideNav(sectionsData);
         setupScrollTracking();
         setupArrowNavigation();
-        setupMenuToggle(); // Optional toggle functionality
         updateArrowStates();
         
       } catch (error) {
@@ -705,42 +668,6 @@
       if (prevBtn && nextBtn) {
         prevBtn.disabled = currentSection === 0;
         nextBtn.disabled = currentSection === totalSections - 1;
-      }
-    }
-    
-    // ========================================
-    // MENU TOGGLE (OPTIONAL - MOBILE ONLY)
-    // ========================================
-    
-    function setupMenuToggle() {
-      const toggleBtn = document.getElementById('nav-toggle');
-      const sideNav = document.getElementById('side-nav');
-      
-      // Only setup if toggle button exists
-      if (!toggleBtn) return;
-      
-      // Show the toggle button
-      toggleBtn.style.display = 'flex';
-      
-      // Toggle menu visibility
-      toggleBtn.addEventListener('click', () => {
-        sideNav.classList.toggle('hidden');
-        
-        // Update button icon
-        toggleBtn.textContent = sideNav.classList.contains('hidden') ? '☰' : '✕';
-      });
-      
-      // Auto-hide menu after navigation on mobile
-      if (window.innerWidth <= 768) {
-        const navLinks = document.querySelectorAll('.side-nav__link');
-        navLinks.forEach(link => {
-          link.addEventListener('click', () => {
-            setTimeout(() => {
-              sideNav.classList.add('hidden');
-              toggleBtn.textContent = '☰';
-            }, 300);
-          });
-        });
       }
     }
     
