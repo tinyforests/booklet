@@ -32,7 +32,7 @@
       
       /* Type scale — responsive */
       --text-xl: clamp(2.5rem, 6vw, 4rem);      /* Entry title */
-      --text-lg: clamp(1.75rem, 4vw, 2.5rem);   /* Slide headings */
+      --text-lg: clamp(1.75rem, 4vw, 2.5rem);   /* Section headings */
       --text-md: clamp(1.0625rem, 2vw, 1.25rem);/* Body text */
       --text-sm: 0.875rem;                      /* Navigation */
       --text-xs: 0.75rem;                       /* Footer */
@@ -50,11 +50,8 @@
       --accent: #3d4535;
       
       /* Spacing */
-      --space-page: clamp(2rem, 8vw, 6rem);
-      
-      /* Motion — physical, slight resistance */
-      --ease-slide: cubic-bezier(0.4, 0.0, 0.2, 1);
-      --duration-slide: 650ms;
+      --space-section: clamp(4rem, 12vh, 8rem);
+      --nav-width: 200px;
     }
     
     /* ========================================
@@ -65,6 +62,7 @@
       font-size: 100%;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
     }
     
     body {
@@ -73,100 +71,86 @@
       line-height: var(--line-relaxed);
       color: var(--text-primary);
       background: var(--nostalgic-beige);
-      overflow: hidden;
+      overflow-x: hidden;
     }
     
     /* ========================================
-       HORIZONTAL NAVIGATION (YIELD STYLE)
+       RIGHT-SIDE NAVIGATION (YIELD STYLE)
        ======================================== */
     
-    #top-nav {
+    #side-nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      padding: 1.5rem 2rem;
-      background: var(--nostalgic-beige);
-      border-bottom: 1px solid rgba(61, 69, 53, 0.15);
+      top: 50%;
+      right: 2rem;
+      transform: translateY(-50%);
       z-index: 200;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
     
-    #top-nav__list {
+    #side-nav__list {
       list-style: none;
       margin: 0;
       padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: center;
+      text-align: right;
     }
     
-    .top-nav__item {
-      margin: 0;
+    .side-nav__item {
+      margin-bottom: 0.75rem;
     }
     
-    .top-nav__link {
+    .side-nav__link {
       font-family: var(--font-sans);
       font-size: var(--text-sm);
       color: var(--text-muted);
       text-decoration: none;
       cursor: pointer;
       transition: color 200ms ease;
-      white-space: nowrap;
+      display: inline-block;
     }
     
-    .top-nav__link:hover {
+    .side-nav__link:hover {
       color: var(--text-primary);
     }
     
-    .top-nav__link.active {
+    .side-nav__link.active {
       color: var(--text-primary);
       font-weight: 500;
     }
     
     /* ========================================
-       SLIDES CONTAINER
+       MAIN CONTENT CONTAINER
        ======================================== */
     
-    #slides-container {
-      display: flex;
-      height: 100vh;
-      width: 100vw;
-      transition: transform var(--duration-slide) var(--ease-slide);
-      will-change: transform;
-      padding-top: 80px; /* Space for top nav */
+    main {
+      max-width: 42rem;
+      margin: 0 auto;
+      padding: 0 2rem;
     }
     
     /* ========================================
-       INDIVIDUAL SLIDE
+       SECTIONS
        ======================================== */
     
-    .slide {
-      min-width: 100vw;
-      height: 100vh;
+    section {
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
-      padding: var(--space-page);
-      padding-top: calc(var(--space-page) + 80px);
+      padding: var(--space-section) 0;
+      scroll-margin-top: 2rem;
     }
     
-    .slide__content {
-      max-width: 38rem; /* ~70 characters at body size */
-      width: 100%;
-    }
-    
-    /* Entry slide — centered */
-    .slide--entry {
+    /* Entry section - centered */
+    section.section--entry {
       text-align: center;
+      align-items: center;
     }
     
-    .slide--entry .slide__content {
+    section.section--entry .section__content {
       max-width: 28rem;
+    }
+    
+    .section__content {
+      width: 100%;
     }
     
     /* ========================================
@@ -209,7 +193,7 @@
     }
     
     /* ========================================
-       ENTER BUTTON (Entry slide only)
+       ENTER BUTTON (Entry section only)
        ======================================== */
     
     .enter-button {
@@ -223,6 +207,7 @@
       border: 1px solid var(--gardener-green);
       cursor: pointer;
       transition: all 200ms ease;
+      text-decoration: none;
     }
     
     .enter-button:hover {
@@ -236,96 +221,18 @@
     }
     
     /* ========================================
-       NAVIGATION ARROWS
+       FOOTER
        ======================================== */
     
-    #nav-arrows {
-      position: fixed;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 1.5rem;
-      opacity: 0.25;
-      transition: opacity 300ms ease;
-      z-index: 100;
-    }
-    
-    #nav-arrows:hover,
-    #nav-arrows:focus-within {
-      opacity: 1;
-    }
-    
-    #nav-arrows button {
-      width: 2.5rem;
-      height: 2.5rem;
-      background: none;
-      border: 1px solid var(--gardener-green);
-      border-radius: 50%;
-      color: var(--gardener-green);
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 200ms ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    #nav-arrows button:hover {
-      background: var(--gardener-green);
-      color: var(--nostalgic-beige);
-    }
-    
-    #nav-arrows button:disabled {
-      opacity: 0.15;
-      cursor: not-allowed;
-      pointer-events: none;
-    }
-    
-    #nav-arrows button:focus {
-      outline: 2px solid var(--gardener-green);
-      outline-offset: 4px;
-    }
-    
-    /* ========================================
-       PROGRESS INDICATOR
-       ======================================== */
-    
-    #progress-indicator {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: rgba(61, 69, 53, 0.15);
-      z-index: 250;
-    }
-    
-    #progress-bar {
-      height: 100%;
-      background: var(--gardener-green);
-      width: 0%;
-      transition: width var(--duration-slide) var(--ease-slide);
-    }
-    
-    /* ========================================
-       FOOTER (Minimal, persistent)
-       ======================================== */
-    
-    #footer {
-      position: fixed;
-      bottom: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
+    footer {
+      text-align: center;
+      padding: 4rem 2rem;
       font-size: var(--text-xs);
       color: var(--text-muted);
-      text-align: center;
-      opacity: 0.5;
-      z-index: 50;
-      pointer-events: none;
+      opacity: 0.7;
     }
     
-    #footer p {
+    footer p {
       margin: 0;
       line-height: 1.4;
     }
@@ -335,11 +242,11 @@
        ======================================== */
     
     @media (prefers-reduced-motion: reduce) {
-      #slides-container,
-      #progress-bar,
-      .enter-button,
-      #nav-arrows button,
-      .top-nav__link {
+      html {
+        scroll-behavior: auto;
+      }
+      
+      .side-nav__link {
         transition: none;
       }
     }
@@ -349,89 +256,88 @@
        ======================================== */
     
     @media (max-width: 768px) {
-      #top-nav {
-        padding: 1rem 1rem;
+      main {
+        padding: 0 1.5rem;
       }
       
-      #top-nav__list {
-        gap: 0.75rem;
-        font-size: 0.8rem;
+      section {
+        min-height: 80vh;
+        padding: 3rem 0;
       }
       
-      .slide {
-        padding: 2rem 1.5rem;
-        justify-content: flex-start;
-        padding-top: 6rem;
+      /* Move navigation to bottom on mobile */
+      #side-nav {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transform: none;
+        background: var(--nostalgic-beige);
+        border-top: 1px solid rgba(61, 69, 53, 0.15);
+        padding: 1rem;
+        overflow-x: auto;
+        white-space: nowrap;
       }
       
-      #slides-container {
-        padding-top: 60px;
-      }
-      
-      #nav-arrows {
-        bottom: 1.5rem;
+      #side-nav__list {
+        display: flex;
+        justify-content: center;
         gap: 1rem;
+        text-align: center;
       }
       
-      #nav-arrows button {
-        width: 2.25rem;
-        height: 2.25rem;
+      .side-nav__item {
+        margin-bottom: 0;
       }
       
-      #footer {
-        bottom: 5rem; /* Above navigation */
+      .side-nav__link {
+        font-size: 0.75rem;
       }
     }
     
-    /* Very small screens - stack navigation */
     @media (max-width: 480px) {
-      #top-nav__list {
+      #side-nav {
+        padding: 0.75rem;
+      }
+      
+      #side-nav__list {
         gap: 0.5rem;
-        font-size: 0.75rem;
+      }
+      
+      .side-nav__link {
+        font-size: 0.7rem;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Progress indicator -->
-  <div id="progress-indicator" role="progressbar" aria-label="Reading progress">
-    <div id="progress-bar"></div>
-  </div>
-
-  <!-- Top horizontal navigation (YIELD style) -->
-  <nav id="top-nav" aria-label="Page navigation">
-    <ul id="top-nav__list">
+  <!-- Right-side navigation (YIELD style) -->
+  <nav id="side-nav" aria-label="Page navigation">
+    <ul id="side-nav__list">
       <!-- Populated by JavaScript -->
     </ul>
   </nav>
 
-  <!-- Main slides container -->
-  <main id="slides-container" role="main">
-    <!-- Slides injected here by JavaScript -->
+  <!-- Main content -->
+  <main id="main-content">
+    <!-- Sections injected here by JavaScript -->
   </main>
 
-  <!-- Minimal navigation arrows -->
-  <nav id="nav-arrows" aria-label="Slide navigation">
-    <button id="prev-slide" aria-label="Previous slide" disabled>←</button>
-    <button id="next-slide" aria-label="Next slide">→</button>
-  </nav>
-
-  <!-- Minimal footer -->
+  <!-- Footer -->
   <footer id="footer">
     <p>© Gardener & Son<br>Made slowly</p>
   </footer>
 
   <script>
     // ========================================
-    // FIELD GUIDE — SLIDE NAVIGATION
-    // Simple, durable, no dependencies
+    // FIELD GUIDE — VERTICAL SCROLLING
+    // YIELD-style navigation
     // ========================================
     
-    let currentSlide = 0;
-    let totalSlides = 0;
-    let isAnimating = false;
-    let slidesData = [];
+    let sectionsData = [];
+    let currentSection = 0;
     
     // ========================================
     // INITIALIZATION
@@ -441,118 +347,118 @@
       try {
         const response = await fetch('slides.json');
         const data = await response.json();
-        slidesData = data.slides;
-        totalSlides = slidesData.length;
+        sectionsData = data.slides;
         
-        buildSlides(slidesData);
-        buildTopNav(slidesData);
-        setupNavigation();
-        updateNavState();
-        updateProgress();
+        buildSections(sectionsData);
+        buildSideNav(sectionsData);
+        setupScrollTracking();
         
       } catch (error) {
-        console.error('Failed to load slides:', error);
-        document.getElementById('slides-container').innerHTML = 
-          '<div class="slide"><div class="slide__content"><p>Failed to load content. Please refresh.</p></div></div>';
+        console.error('Failed to load content:', error);
+        document.getElementById('main-content').innerHTML = 
+          '<section><div class="section__content"><p>Failed to load content. Please refresh.</p></div></section>';
       }
     }
     
     // ========================================
-    // BUILD SLIDE DOM ELEMENTS
+    // BUILD SECTIONS
     // ========================================
     
-    function buildSlides(slides) {
-      const container = document.getElementById('slides-container');
-      container.innerHTML = ''; // Clear any existing content
+    function buildSections(sections) {
+      const main = document.getElementById('main-content');
+      main.innerHTML = '';
       
-      slides.forEach((slide, index) => {
-        const slideEl = document.createElement('section');
-        slideEl.className = 'slide';
-        slideEl.setAttribute('data-slide-index', index);
-        slideEl.setAttribute('aria-label', `Slide ${index + 1} of ${slides.length}`);
+      sections.forEach((section, index) => {
+        const sectionEl = document.createElement('section');
+        sectionEl.id = `section-${index}`;
+        sectionEl.setAttribute('data-section-index', index);
         
         // Add type class if specified
-        if (slide.type) {
-          slideEl.classList.add(`slide--${slide.type}`);
+        if (section.type) {
+          sectionEl.classList.add(`section--${section.type}`);
         }
         
         const content = document.createElement('div');
-        content.className = 'slide__content';
+        content.className = 'section__content';
         
-        // Entry slide with title and button
-        if (slide.type === 'entry') {
+        // Entry section with title and button
+        if (section.type === 'entry') {
           const title = document.createElement('h1');
-          title.textContent = slide.title;
+          title.textContent = section.title;
           content.appendChild(title);
           
-          if (slide.subtitle) {
+          if (section.subtitle) {
             const subtitle = document.createElement('p');
-            subtitle.textContent = slide.subtitle;
+            subtitle.textContent = section.subtitle;
             content.appendChild(subtitle);
           }
           
-          if (slide.action) {
-            const button = document.createElement('button');
+          if (section.action) {
+            const button = document.createElement('a');
             button.className = 'enter-button';
-            button.textContent = slide.action;
-            button.onclick = () => goToSlide(1);
+            button.textContent = section.action;
+            button.href = '#section-1';
             content.appendChild(button);
           }
         }
-        // Regular slide with heading and body
+        // Regular section with heading and body
         else {
-          if (slide.heading) {
+          if (section.heading) {
             const heading = document.createElement('h2');
-            heading.textContent = slide.heading;
+            heading.textContent = section.heading;
             content.appendChild(heading);
           }
           
-          if (slide.body) {
+          if (section.body) {
             // Handle line breaks in body text
-            const paragraphs = slide.body.split('\n\n');
+            const paragraphs = section.body.split('\n\n');
             paragraphs.forEach(para => {
               const p = document.createElement('p');
-              // Replace single line breaks with <br> for intentional breaks
+              // Replace single line breaks with spans for intentional breaks
               p.innerHTML = para.split('\n').join('<span class="line-break"></span>');
               content.appendChild(p);
             });
           }
         }
         
-        slideEl.appendChild(content);
-        container.appendChild(slideEl);
+        sectionEl.appendChild(content);
+        main.appendChild(sectionEl);
       });
     }
     
     // ========================================
-    // BUILD TOP NAVIGATION (YIELD STYLE)
+    // BUILD SIDE NAVIGATION
     // ========================================
     
-    function buildTopNav(slides) {
-      const navList = document.getElementById('top-nav__list');
+    function buildSideNav(sections) {
+      const navList = document.getElementById('side-nav__list');
       navList.innerHTML = '';
       
-      slides.forEach((slide, index) => {
+      sections.forEach((section, index) => {
         const li = document.createElement('li');
-        li.className = 'top-nav__item';
+        li.className = 'side-nav__item';
         
         const link = document.createElement('a');
-        link.className = 'top-nav__link';
-        link.setAttribute('data-slide-index', index);
+        link.className = 'side-nav__link';
+        link.href = `#section-${index}`;
+        link.setAttribute('data-section-index', index);
         
-        // Format as numbered navigation: "1 · Welcome"
-        if (slide.type === 'entry') {
-          link.textContent = slide.title || 'Entry';
+        // Format as numbered navigation
+        if (section.type === 'entry') {
+          link.textContent = section.title || 'Entry';
         } else {
-          const number = index; // Could use index or custom numbering
-          const title = slide.heading || `Slide ${index + 1}`;
+          const number = index;
+          const title = section.heading || `Section ${index + 1}`;
           link.textContent = `${number} · ${title}`;
         }
         
-        // Click handler
+        // Click handler for smooth scroll
         link.addEventListener('click', (e) => {
           e.preventDefault();
-          goToSlide(index);
+          const targetSection = document.getElementById(`section-${index}`);
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
         });
         
         li.appendChild(link);
@@ -561,150 +467,41 @@
     }
     
     // ========================================
-    // UPDATE TOP NAV ACTIVE STATE
+    // SCROLL TRACKING
     // ========================================
     
-    function updateTopNavState() {
-      const links = document.querySelectorAll('.top-nav__link');
+    function setupScrollTracking() {
+      // Intersection Observer to track which section is visible
+      const options = {
+        root: null,
+        rootMargin: '-50% 0px -50% 0px',
+        threshold: 0
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const sectionIndex = parseInt(entry.target.getAttribute('data-section-index'));
+            updateActiveNav(sectionIndex);
+          }
+        });
+      }, options);
+      
+      // Observe all sections
+      document.querySelectorAll('section').forEach(section => {
+        observer.observe(section);
+      });
+    }
+    
+    function updateActiveNav(sectionIndex) {
+      const links = document.querySelectorAll('.side-nav__link');
       links.forEach((link, index) => {
-        if (index === currentSlide) {
+        if (index === sectionIndex) {
           link.classList.add('active');
         } else {
           link.classList.remove('active');
         }
       });
-    }
-    
-    // ========================================
-    // NAVIGATION
-    // ========================================
-    
-    function goToSlide(index, skipAnimation = false) {
-      // Bounds checking
-      if (index < 0 || index >= totalSlides) return;
-      
-      // Prevent navigation during animation
-      if (isAnimating && !skipAnimation) return;
-      
-      isAnimating = true;
-      currentSlide = index;
-      
-      const container = document.getElementById('slides-container');
-      const offset = -currentSlide * 100;
-      
-      if (skipAnimation) {
-        container.style.transition = 'none';
-      }
-      
-      container.style.transform = `translateX(${offset}vw)`;
-      
-      if (skipAnimation) {
-        // Force reflow then restore transition
-        container.offsetHeight;
-        container.style.transition = '';
-      }
-      
-      updateNavState();
-      updateProgress();
-      
-      // Reset animation lock
-      setTimeout(() => {
-        isAnimating = false;
-      }, 650); // Match CSS transition duration
-    }
-    
-    function updateNavState() {
-      const prevBtn = document.getElementById('prev-slide');
-      const nextBtn = document.getElementById('next-slide');
-      
-      // Disable prev button on first slide
-      prevBtn.disabled = currentSlide === 0;
-      
-      // Disable next button on last slide
-      nextBtn.disabled = currentSlide === totalSlides - 1;
-      
-      // Update top navigation active state
-      updateTopNavState();
-    }
-    
-    function updateProgress() {
-      const progressBar = document.getElementById('progress-bar');
-      const progress = totalSlides > 1 ? (currentSlide / (totalSlides - 1)) * 100 : 0;
-      progressBar.style.width = `${progress}%`;
-    }
-    
-    // ========================================
-    // INPUT HANDLERS
-    // ========================================
-    
-    function setupNavigation() {
-      // Keyboard navigation
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight' || e.key === 'Right') {
-          e.preventDefault();
-          goToSlide(currentSlide + 1);
-        } else if (e.key === 'ArrowLeft' || e.key === 'Left') {
-          e.preventDefault();
-          goToSlide(currentSlide - 1);
-        }
-      });
-      
-      // On-screen arrow buttons
-      document.getElementById('next-slide').addEventListener('click', () => {
-        goToSlide(currentSlide + 1);
-      });
-      
-      document.getElementById('prev-slide').addEventListener('click', () => {
-        goToSlide(currentSlide - 1);
-      });
-      
-      // Trackpad horizontal scroll (with debouncing)
-      let scrollTimeout;
-      const container = document.getElementById('slides-container');
-      
-      container.addEventListener('wheel', (e) => {
-        // Only respond to significant horizontal scroll
-        if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 10) {
-          e.preventDefault();
-          
-          clearTimeout(scrollTimeout);
-          scrollTimeout = setTimeout(() => {
-            if (e.deltaX > 30) {
-              goToSlide(currentSlide + 1);
-            } else if (e.deltaX < -30) {
-              goToSlide(currentSlide - 1);
-            }
-          }, 50);
-        }
-      }, { passive: false });
-      
-      // Touch swipe for mobile
-      let touchStartX = 0;
-      let touchEndX = 0;
-      
-      container.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-      }, { passive: true });
-      
-      container.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-      }, { passive: true });
-      
-      function handleSwipe() {
-        const swipeThreshold = 50;
-        const diff = touchStartX - touchEndX;
-        
-        if (Math.abs(diff) > swipeThreshold) {
-          if (diff > 0) {
-            // Swiped left → next slide
-            goToSlide(currentSlide + 1);
-          } else {
-            // Swiped right → previous slide
-            goToSlide(currentSlide - 1);
-          }
-        }
-      }
     }
     
     // ========================================
