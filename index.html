@@ -338,39 +338,42 @@
         padding: 3rem 0;
       }
       
-      /* Position navigation to fit between text lines */
+      /* Full-height navigation on mobile */
       #side-nav {
         position: fixed;
-        top: 1rem;
+        top: 0;
         right: 0.5rem;
-        bottom: auto;
+        bottom: 0;
         transform: none;
         background: transparent;
-        max-height: calc(100vh - 8rem);
-        overflow-y: auto;
-        line-height: var(--line-relaxed); /* Match body text line height */
-      }
-      
-      /* Hide scrollbar */
-      #side-nav::-webkit-scrollbar {
-        width: 0;
-        display: none;
+        display: flex;
+        align-items: center;
+        padding: 2rem 0;
       }
       
       #side-nav__list {
         text-align: right;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        width: 100%;
       }
       
       .side-nav__item {
-        margin-bottom: 0; /* Remove margin - use line-height instead */
+        margin-bottom: 0;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
       }
       
       .side-nav__link {
         font-size: 0.65rem;
-        line-height: var(--line-relaxed); /* Match body text spacing */
+        line-height: 1.2;
         padding: 0;
         display: block;
-        opacity: 0.6; /* Subtle so it doesn't compete with content */
+        opacity: 0.6;
       }
       
       .side-nav__link.active {
