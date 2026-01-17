@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Field Guide — Gardener & Son</title>
+  
+  <!-- Abril Fatface from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+  
   <style>
     /* ========================================
        RESET
@@ -21,19 +27,19 @@
     
     :root {
       /* Typography */
-      --font-serif: 'Iowan Old Style', 'Palatino Linotype', 'Palatino', 'Book Antiqua', Georgia, serif;
+      --font-serif: 'Abril Fatface', 'Iowan Old Style', 'Palatino Linotype', serif;
       --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       
       /* Type scale — responsive */
       --text-xl: clamp(2.5rem, 6vw, 4rem);      /* Entry title */
-      --text-lg: clamp(1.5rem, 3.5vw, 2.25rem); /* Slide headings */
+      --text-lg: clamp(1.75rem, 4vw, 2.5rem);   /* Slide headings */
       --text-md: clamp(1.0625rem, 2vw, 1.25rem);/* Body text */
       --text-sm: 0.875rem;                      /* Navigation */
       --text-xs: 0.75rem;                       /* Footer */
       
       /* Line heights */
       --line-tight: 1.15;
-      --line-medium: 1.4;
+      --line-medium: 1.35;
       --line-relaxed: 1.65;
       
       /* Gardener & Son Brand Colors */
@@ -45,13 +51,10 @@
       
       /* Spacing */
       --space-page: clamp(2rem, 8vw, 6rem);
-      --nav-width: 280px;
       
       /* Motion — physical, slight resistance */
       --ease-slide: cubic-bezier(0.4, 0.0, 0.2, 1);
       --duration-slide: 650ms;
-      --ease-nav: cubic-bezier(0.4, 0.0, 0.2, 1);
-      --duration-nav: 300ms;
     }
     
     /* ========================================
@@ -74,6 +77,57 @@
     }
     
     /* ========================================
+       HORIZONTAL NAVIGATION (YIELD STYLE)
+       ======================================== */
+    
+    #top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem 2rem;
+      background: var(--nostalgic-beige);
+      border-bottom: 1px solid rgba(61, 69, 53, 0.15);
+      z-index: 200;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    #top-nav__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+    
+    .top-nav__item {
+      margin: 0;
+    }
+    
+    .top-nav__link {
+      font-family: var(--font-sans);
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 200ms ease;
+      white-space: nowrap;
+    }
+    
+    .top-nav__link:hover {
+      color: var(--text-primary);
+    }
+    
+    .top-nav__link.active {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    
+    /* ========================================
        SLIDES CONTAINER
        ======================================== */
     
@@ -83,109 +137,7 @@
       width: 100vw;
       transition: transform var(--duration-slide) var(--ease-slide);
       will-change: transform;
-    }
-    
-    /* ========================================
-       NAVIGATION MENU
-       ======================================== */
-    
-    #nav-menu {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: var(--nav-width);
-      height: 100vh;
-      background: var(--gardener-green);
-      color: var(--nostalgic-beige);
-      padding: 2rem 1.5rem;
-      overflow-y: auto;
-      z-index: 200;
-      transform: translateX(0);
-      transition: transform var(--duration-nav) var(--ease-nav);
-    }
-    
-    #nav-menu.hidden {
-      transform: translateX(-100%);
-    }
-    
-    #nav-menu__header {
-      margin-bottom: 2rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(255, 240, 220, 0.2);
-    }
-    
-    #nav-menu__title {
-      font-family: var(--font-serif);
-      font-size: 1.25rem;
-      font-weight: 400;
-      line-height: var(--line-tight);
-      margin: 0;
-      color: var(--nostalgic-beige);
-    }
-    
-    #nav-menu__list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-    
-    .nav-menu__item {
-      margin-bottom: 0.5rem;
-    }
-    
-    .nav-menu__link {
-      display: block;
-      font-family: var(--font-sans);
-      font-size: var(--text-sm);
-      line-height: var(--line-medium);
-      color: rgba(255, 240, 220, 0.7);
-      text-decoration: none;
-      padding: 0.5rem 0;
-      transition: color 200ms ease;
-      cursor: pointer;
-    }
-    
-    .nav-menu__link:hover {
-      color: var(--nostalgic-beige);
-    }
-    
-    .nav-menu__link.active {
-      color: var(--nostalgic-beige);
-      font-weight: 500;
-    }
-    
-    /* Toggle button */
-    #nav-toggle {
-      position: fixed;
-      top: 2rem;
-      left: 2rem;
-      width: 2.5rem;
-      height: 2.5rem;
-      background: var(--gardener-green);
-      border: none;
-      border-radius: 50%;
-      color: var(--nostalgic-beige);
-      cursor: pointer;
-      z-index: 300;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-      transition: all 200ms ease;
-    }
-    
-    #nav-toggle:hover {
-      transform: scale(1.05);
-    }
-    
-    #nav-toggle:focus {
-      outline: 2px solid var(--gardener-green);
-      outline-offset: 4px;
-    }
-    
-    /* Adjust slides container when nav is visible */
-    body.nav-visible #slides-container {
-      padding-left: var(--nav-width);
+      padding-top: 80px; /* Space for top nav */
     }
     
     /* ========================================
@@ -200,6 +152,7 @@
       justify-content: center;
       align-items: center;
       padding: var(--space-page);
+      padding-top: calc(var(--space-page) + 80px);
     }
     
     .slide__content {
@@ -345,7 +298,7 @@
       width: 100%;
       height: 1px;
       background: rgba(61, 69, 53, 0.15);
-      z-index: 100;
+      z-index: 250;
     }
     
     #progress-bar {
@@ -385,7 +338,8 @@
       #slides-container,
       #progress-bar,
       .enter-button,
-      #nav-arrows button {
+      #nav-arrows button,
+      .top-nav__link {
         transition: none;
       }
     }
@@ -394,11 +348,24 @@
        MOBILE REFINEMENTS
        ======================================== */
     
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
+      #top-nav {
+        padding: 1rem 1rem;
+      }
+      
+      #top-nav__list {
+        gap: 0.75rem;
+        font-size: 0.8rem;
+      }
+      
       .slide {
         padding: 2rem 1.5rem;
         justify-content: flex-start;
-        padding-top: 4rem;
+        padding-top: 6rem;
+      }
+      
+      #slides-container {
+        padding-top: 60px;
       }
       
       #nav-arrows {
@@ -414,35 +381,27 @@
       #footer {
         bottom: 5rem; /* Above navigation */
       }
-      
-      /* Mobile navigation */
-      #nav-menu {
-        width: 85vw;
-        max-width: 320px;
-      }
-      
-      #nav-toggle {
-        top: 1.5rem;
-        left: 1.5rem;
-      }
-      
-      body.nav-visible #slides-container {
-        padding-left: 0; /* No padding shift on mobile */
+    }
+    
+    /* Very small screens - stack navigation */
+    @media (max-width: 480px) {
+      #top-nav__list {
+        gap: 0.5rem;
+        font-size: 0.75rem;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Navigation toggle button -->
-  <button id="nav-toggle" aria-label="Toggle navigation menu">☰</button>
+  <!-- Progress indicator -->
+  <div id="progress-indicator" role="progressbar" aria-label="Reading progress">
+    <div id="progress-bar"></div>
+  </div>
 
-  <!-- Navigation menu -->
-  <nav id="nav-menu" aria-label="Page navigation">
-    <div id="nav-menu__header">
-      <h2 id="nav-menu__title">Field Guide</h2>
-    </div>
-    <ul id="nav-menu__list">
+  <!-- Top horizontal navigation (YIELD style) -->
+  <nav id="top-nav" aria-label="Page navigation">
+    <ul id="top-nav__list">
       <!-- Populated by JavaScript -->
     </ul>
   </nav>
@@ -457,11 +416,6 @@
     <button id="prev-slide" aria-label="Previous slide" disabled>←</button>
     <button id="next-slide" aria-label="Next slide">→</button>
   </nav>
-
-  <!-- Progress indicator -->
-  <div id="progress-indicator" role="progressbar" aria-label="Reading progress">
-    <div id="progress-bar"></div>
-  </div>
 
   <!-- Minimal footer -->
   <footer id="footer">
@@ -491,8 +445,8 @@
         totalSlides = slidesData.length;
         
         buildSlides(slidesData);
+        buildTopNav(slidesData);
         setupNavigation();
-        setupNavToggle();
         updateNavState();
         updateProgress();
         
@@ -568,42 +522,37 @@
         slideEl.appendChild(content);
         container.appendChild(slideEl);
       });
-      
-      // Build navigation menu
-      buildNavMenu(slides);
     }
     
     // ========================================
-    // BUILD NAVIGATION MENU
+    // BUILD TOP NAVIGATION (YIELD STYLE)
     // ========================================
     
-    function buildNavMenu(slides) {
-      const navList = document.getElementById('nav-menu__list');
+    function buildTopNav(slides) {
+      const navList = document.getElementById('top-nav__list');
       navList.innerHTML = '';
       
       slides.forEach((slide, index) => {
         const li = document.createElement('li');
-        li.className = 'nav-menu__item';
+        li.className = 'top-nav__item';
         
         const link = document.createElement('a');
-        link.className = 'nav-menu__link';
+        link.className = 'top-nav__link';
         link.setAttribute('data-slide-index', index);
         
-        // Set link text
+        // Format as numbered navigation: "1 · Welcome"
         if (slide.type === 'entry') {
           link.textContent = slide.title || 'Entry';
         } else {
-          link.textContent = slide.heading || `Slide ${index + 1}`;
+          const number = index; // Could use index or custom numbering
+          const title = slide.heading || `Slide ${index + 1}`;
+          link.textContent = `${number} · ${title}`;
         }
         
         // Click handler
         link.addEventListener('click', (e) => {
           e.preventDefault();
           goToSlide(index);
-          // Hide nav on mobile after selection
-          if (window.innerWidth <= 640) {
-            toggleNav();
-          }
         });
         
         li.appendChild(link);
@@ -612,11 +561,11 @@
     }
     
     // ========================================
-    // UPDATE NAVIGATION ACTIVE STATE
+    // UPDATE TOP NAV ACTIVE STATE
     // ========================================
     
-    function updateNavMenuState() {
-      const links = document.querySelectorAll('.nav-menu__link');
+    function updateTopNavState() {
+      const links = document.querySelectorAll('.top-nav__link');
       links.forEach((link, index) => {
         if (index === currentSlide) {
           link.classList.add('active');
@@ -674,40 +623,14 @@
       // Disable next button on last slide
       nextBtn.disabled = currentSlide === totalSlides - 1;
       
-      // Update navigation menu active state
-      updateNavMenuState();
+      // Update top navigation active state
+      updateTopNavState();
     }
     
     function updateProgress() {
       const progressBar = document.getElementById('progress-bar');
       const progress = totalSlides > 1 ? (currentSlide / (totalSlides - 1)) * 100 : 0;
       progressBar.style.width = `${progress}%`;
-    }
-    
-    // ========================================
-    // NAVIGATION TOGGLE
-    // ========================================
-    
-    function toggleNav() {
-      const navMenu = document.getElementById('nav-menu');
-      const body = document.body;
-      
-      navMenu.classList.toggle('hidden');
-      body.classList.toggle('nav-visible');
-    }
-    
-    function setupNavToggle() {
-      const toggleBtn = document.getElementById('nav-toggle');
-      
-      toggleBtn.addEventListener('click', toggleNav);
-      
-      // Start with nav visible on desktop, hidden on mobile
-      if (window.innerWidth <= 640) {
-        const navMenu = document.getElementById('nav-menu');
-        navMenu.classList.add('hidden');
-      } else {
-        document.body.classList.add('nav-visible');
-      }
     }
     
     // ========================================
