@@ -5,834 +5,515 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="A working book of practice, culture, and care from Gardener & Son — an ecological design studio.">
   <title>Field Guide — Gardener & Son</title>
-  
-  <!-- Abril Fatface for headings -->
+
+  <!-- Four-font system: Abril Fatface (cover), Fraunces (headings), IBM Plex Sans (body), IBM Plex Mono (folios/labels) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Fraunces:opsz,wght@9..144,360;9..144,400;9..144,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400&display=swap" rel="stylesheet">
+
   <style>
-    /* ========================================
-       RESET
-       ======================================== */
-    
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    /* ========================================
-       DESIGN SYSTEM
-       ======================================== */
-    
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
     :root {
-      /* Typography */
-      --font-serif: 'Abril Fatface', 'Iowan Old Style', 'Palatino Linotype', serif;
-      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      
-      /* Type scale — mathematically harmonious */
-      --text-xl: clamp(2.5rem, 6vw, 4rem);
-      --text-lg: clamp(1.75rem, 4vw, 2.5rem);
-      --text-md: clamp(1.0625rem, 2vw, 1.25rem);
-      --text-sm: clamp(0.75rem, 1.5vw, 0.875rem);
-      --text-xs: 0.75rem;
-      
-      /* Line heights */
-      --line-tight: 1.15;
-      --line-medium: 1.35;
-      --line-relaxed: 1.65;
-      
-      /* Gardener & Son Brand */
-      --gardener-green: #3d4535;
-      --nostalgic-beige: #fff0dc;
+      /* Fonts */
+      --font-display: 'Abril Fatface', Georgia, serif;        /* cover only */
+      --font-serif:   'Fraunces', 'Iowan Old Style', Georgia, serif; /* headings */
+      --font-sans:    'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; /* body */
+      --font-mono:    'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace; /* folios/labels */
+
+      /* Type scale */
+      --text-xl: clamp(3rem, 8vw, 5.25rem);
+      --text-lg: clamp(1.65rem, 3.6vw, 2.4rem);
+      --text-md: clamp(1.0625rem, 1.6vw, 1.2rem);
+      --text-sm: 0.8125rem;
+      --text-xs: 0.6875rem;
+
+      --line-tight: 1.08;
+      --line-medium: 1.3;
+      --line-relaxed: 1.7;
+
+      /* Gardener & Son brand */
+      --green:  #3d4535;
+      --beige:  #fff0dc;
+      --brass:  #b49a63;            /* Dry Grass Brass — the single accent */
       --text-primary: #3d4535;
-      --text-muted: rgba(61, 69, 53, 0.45);
-      --text-ghost: rgba(61, 69, 53, 0.25);
-      
-      /* Spacing scale — 8px base */
+      --text-muted:  rgba(61, 69, 53, 0.5);
+      --text-ghost:  rgba(61, 69, 53, 0.22);
+      --rule:        rgba(61, 69, 53, 0.14);
+
       --space-xs: 0.5rem;
       --space-sm: 1rem;
       --space-md: 2rem;
       --space-lg: 4rem;
-      --space-xl: 8rem;
       --space-section: clamp(4rem, 12vh, 8rem);
-      
-      /* Motion — physically accurate */
-      --ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
-      --ease-decelerate: cubic-bezier(0.0, 0.0, 0.2, 1);
-      --ease-accelerate: cubic-bezier(0.4, 0.0, 1, 1);
+
+      --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
       --duration-short: 200ms;
-      --duration-medium: 300ms;
+      --duration-medium: 320ms;
       --duration-long: 650ms;
     }
-    
-    /* ========================================
-       BASE
-       ======================================== */
-    
-    html {
-      font-size: 100%;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      scroll-behavior: smooth;
-    }
-    
+
+    html { font-size: 100%; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-behavior: smooth; }
+
     body {
       font-family: var(--font-sans);
+      font-weight: 400;
       font-size: var(--text-md);
       line-height: var(--line-relaxed);
       color: var(--text-primary);
-      background: var(--nostalgic-beige);
+      background: var(--beige);
       overflow-x: hidden;
+      position: relative;
     }
-    
-    /* ========================================
-       NAVIGATION — RIGHT SIDEBAR
-       ======================================== */
-    
+
+    /* Faint paper grain — barely there */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Reading-progress hairline — the one brass flourish at the top */
+    #progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      width: 0%;
+      background: var(--brass);
+      z-index: 300;
+      transition: width 120ms linear;
+    }
+
+    /* ---- Side navigation ---- */
     #side-nav {
       position: fixed;
-      top: 50%;
-      right: var(--space-md);
+      top: 50%; right: var(--space-md);
       transform: translateY(-50%);
       z-index: 200;
-      max-height: 90vh;
-      overflow-y: auto;
-      overflow-x: hidden;
-      
-      /* Custom minimal scrollbar */
+      max-height: 84vh;
+      overflow-y: auto; overflow-x: hidden;
       scrollbar-width: thin;
       scrollbar-color: var(--text-ghost) transparent;
     }
-    
-    #side-nav::-webkit-scrollbar {
-      width: 2px;
-    }
-    
-    #side-nav::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    
-    #side-nav::-webkit-scrollbar-thumb {
-      background: var(--text-ghost);
-      border-radius: 2px;
-    }
-    
-    #side-nav__list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      text-align: right;
-    }
-    
-    .side-nav__item {
-      margin-bottom: var(--space-xs);
-    }
-    
+    #side-nav::-webkit-scrollbar { width: 2px; }
+    #side-nav::-webkit-scrollbar-thumb { background: var(--text-ghost); }
+
+    #side-nav__list { list-style: none; text-align: right; }
+    .side-nav__item { margin-bottom: 0.4rem; }
+
     .side-nav__link {
-      font-family: var(--font-sans);
-      font-size: var(--text-sm);
-      line-height: var(--line-medium);
-      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.02em;
+      color: var(--text-ghost);
       text-decoration: none;
       cursor: pointer;
       transition: color var(--duration-short) var(--ease-standard);
-      display: inline-block;
-      position: relative;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.45em;
     }
-    
-    .side-nav__link::after {
-      content: '';
-      position: absolute;
-      right: 0;
-      bottom: -2px;
-      width: 0;
-      height: 1px;
-      background: var(--text-primary);
-      transition: width var(--duration-medium) var(--ease-decelerate);
+    .side-nav__link .num { color: var(--text-ghost); transition: color var(--duration-short) var(--ease-standard); }
+    .side-nav__link .label {
+      max-width: 0; overflow: hidden; white-space: nowrap;
+      opacity: 0;
+      transition: max-width var(--duration-medium) var(--ease-decelerate), opacity var(--duration-short) var(--ease-standard);
     }
-    
-    .side-nav__link:hover {
-      color: var(--text-primary);
-    }
-    
-    .side-nav__link:hover::after {
-      width: 100%;
-    }
-    
-    .side-nav__link.active {
-      color: var(--text-primary);
-      font-weight: 500;
-    }
-    
-    .side-nav__link.active::after {
-      width: 100%;
-    }
-    
-    /* ========================================
-       MAIN CONTENT
-       ======================================== */
-    
-    main {
-      max-width: 42rem;
-      margin: 0 auto;
-      padding: 0 var(--space-md);
-    }
-    
+    .side-nav__link:hover { color: var(--text-primary); }
+    .side-nav__link:hover .label { max-width: 16rem; opacity: 1; }
+    .side-nav__link.active .num { color: var(--brass); }
+    .side-nav__link.active { color: var(--text-primary); }
+    .side-nav__link.active .label { max-width: 16rem; opacity: 1; }
+
+    /* ---- Main ---- */
+    main { max-width: 40rem; margin: 0 auto; padding: 0 var(--space-md); position: relative; z-index: 2; }
+
     section {
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      display: flex; flex-direction: column; justify-content: center;
       padding: var(--space-section) 0;
       scroll-margin-top: var(--space-md);
     }
-    
-    section.section--entry {
-      text-align: center;
-      align-items: center;
+    section.section--entry { text-align: center; align-items: center; }
+    section.section--entry .section__content { max-width: 30rem; }
+    .section__content { width: 100%; }
+
+    /* Eyebrow folio — encodes the real "numbered field guide" structure */
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: var(--space-md);
+      display: flex; align-items: center; gap: 0.75rem;
     }
-    
-    section.section--entry .section__content {
-      max-width: 28rem;
+    .eyebrow::after {
+      content: ''; height: 1px; flex: 1; background: var(--rule);
     }
-    
-    .section__content {
-      width: 100%;
-    }
-    
-    /* ========================================
-       TYPOGRAPHY
-       ======================================== */
-    
+
+    /* Cover */
     h1 {
-      font-family: var(--font-serif);
+      font-family: var(--font-display);
       font-size: var(--text-xl);
       font-weight: 400;
       line-height: var(--line-tight);
-      letter-spacing: -0.02em;
-      margin-bottom: var(--space-md);
+      letter-spacing: -0.01em;
+      margin-bottom: var(--space-sm);
     }
-    
+    .cover-rule { width: 2.5rem; height: 1px; background: var(--brass); margin: var(--space-md) auto; }
+    .cover-sub { color: var(--text-muted); font-size: var(--text-md); }
+
+    /* Section headings */
     h2 {
       font-family: var(--font-serif);
       font-size: var(--text-lg);
       font-weight: 400;
       line-height: var(--line-medium);
-      letter-spacing: -0.015em;
+      letter-spacing: -0.01em;
       margin-bottom: var(--space-md);
     }
-    
-    p {
-      font-family: var(--font-sans);
-      font-size: var(--text-md);
-      line-height: var(--line-relaxed);
-      margin-bottom: var(--space-sm);
-    }
-    
-    p:last-child {
-      margin-bottom: 0;
-    }
-    
-    .line-break {
-      display: block;
-      height: 0.75em;
-    }
-    
-    /* ========================================
-       INTERACTIVE ELEMENTS
-       ======================================== */
-    
+
+    p { font-size: var(--text-md); line-height: var(--line-relaxed); margin-bottom: var(--space-sm); font-weight: 400; }
+    p:last-child { margin-bottom: 0; }
+    .line-break { display: block; height: 0.55em; }
+
+    /* Enter button */
     .enter-button {
       display: inline-block;
-      margin-top: var(--space-md);
-      padding: 0.875rem 2.25rem;
-      font-family: var(--font-sans);
-      font-size: var(--text-md);
-      color: var(--gardener-green);
+      margin-top: var(--space-lg);
+      padding: 0.75rem 2.5rem;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--green);
       background: transparent;
-      border: 1px solid var(--gardener-green);
+      border: 1px solid var(--green);
       cursor: pointer;
-      transition: all var(--duration-medium) var(--ease-standard);
       text-decoration: none;
       position: relative;
       overflow: hidden;
+      transition: color var(--duration-medium) var(--ease-standard);
     }
-    
     .enter-button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 100%;
-      background: var(--gardener-green);
-      transition: width var(--duration-medium) var(--ease-decelerate);
+      content: ''; position: absolute; inset: 0 100% 0 0;
+      background: var(--green);
+      transition: right var(--duration-medium) var(--ease-decelerate);
       z-index: -1;
     }
-    
-    .enter-button:hover::before {
-      width: 100%;
-    }
-    
-    .enter-button:hover {
-      color: var(--nostalgic-beige);
-    }
-    
-    .enter-button:focus {
-      outline: 2px solid var(--gardener-green);
-      outline-offset: 4px;
-    }
-    
-    /* ========================================
-       NAVIGATION ARROWS
-       ======================================== */
-    
+    .enter-button:hover { color: var(--beige); }
+    .enter-button:hover::before { right: 0; }
+    .enter-button:focus-visible { outline: 2px solid var(--brass); outline-offset: 4px; }
+
+    /* Nav arrows */
     #nav-arrows {
-      position: fixed;
-      right: 50%;
-      bottom: var(--space-md);
-      transform: translateX(50%);
-      display: flex;
-      gap: var(--space-sm);
-      z-index: 100;
+      position: fixed; left: 50%; bottom: var(--space-md);
+      transform: translateX(-50%);
+      display: flex; gap: var(--space-sm); z-index: 100;
     }
-    
     .nav-arrow {
-      width: 3rem;
-      height: 3rem;
+      width: 2.75rem; height: 2.75rem;
       background: transparent;
-      border: 1px solid var(--text-muted);
+      border: 1px solid var(--text-ghost);
       border-radius: 50%;
       color: var(--text-muted);
-      font-size: 1.25rem;
-      cursor: pointer;
+      font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0.6;
       transition: all var(--duration-medium) var(--ease-standard);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0.5;
     }
-    
-    .nav-arrow:hover {
-      background: var(--gardener-green);
-      border-color: var(--gardener-green);
-      color: var(--nostalgic-beige);
-      opacity: 1;
-      transform: scale(1.05);
-    }
-    
-    .nav-arrow:disabled {
-      opacity: 0.15;
-      cursor: not-allowed;
-      pointer-events: none;
-    }
-    
-    .nav-arrow:focus {
-      outline: 2px solid var(--gardener-green);
-      outline-offset: 4px;
-      opacity: 1;
-    }
-    
-    /* Subtle pulse animation */
-    @keyframes arrowPulse {
-      0%, 100% {
-        transform: translateY(0);
-        opacity: 0.5;
-      }
-      50% {
-        transform: translateY(-4px);
-        opacity: 0.7;
-      }
-    }
-    
-    .nav-arrow--down:not(:disabled) {
-      animation: arrowPulse 3s ease-in-out infinite;
-    }
-    
-    .nav-arrow--up:not(:disabled) {
-      animation: arrowPulse 3s ease-in-out infinite;
-      animation-direction: reverse;
-    }
-    
-    .nav-arrow:hover,
-    .nav-arrow:focus {
-      animation: none;
-    }
-    
-    /* ========================================
-       FOOTER
-       ======================================== */
-    
+    .nav-arrow:hover { background: var(--green); border-color: var(--green); color: var(--beige); opacity: 1; }
+    .nav-arrow:disabled { opacity: 0.12; cursor: not-allowed; pointer-events: none; }
+    .nav-arrow:focus-visible { outline: 2px solid var(--brass); outline-offset: 4px; opacity: 1; }
+
     footer {
       text-align: center;
       padding: var(--space-lg) var(--space-md);
+      font-family: var(--font-mono);
       font-size: var(--text-xs);
+      letter-spacing: 0.12em;
       color: var(--text-muted);
-      opacity: 0.7;
+      position: relative; z-index: 2;
     }
-    
-    footer p {
-      margin: 0;
-      line-height: var(--line-medium);
-    }
-    
-    /* ========================================
-       ACCESSIBILITY
-       ======================================== */
-    
+    footer p { margin: 0; line-height: 1.7; font-family: var(--font-mono); font-size: var(--text-xs); }
+
     @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-      
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
-    
-    /* ========================================
-       MOBILE & TABLET
-       ======================================== */
-    
-    @media (max-width: 1024px) {
-      #side-nav {
-        right: var(--space-sm);
-      }
-    }
-    
+
     @media (max-width: 768px) {
-      :root {
-        --space-md: 1.5rem;
-        --space-lg: 3rem;
-      }
-      
-      main {
-        padding: 0 var(--space-sm);
-        padding-right: 3.5rem; /* Space for navigation */
-      }
-      
-      section {
-        min-height: 90vh;
-        padding: var(--space-lg) 0;
-      }
-      
-      /* Full-height vertical navigation on mobile */
-      #side-nav {
-        top: 0;
-        right: 0.5rem;
-        bottom: 0;
-        transform: none;
-        display: flex;
-        align-items: stretch;
-        padding: var(--space-md) 0;
-        max-height: 100vh;
-      }
-      
-      #side-nav__list {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        align-items: flex-end;
-        height: 100%;
-        width: 100%;
-      }
-      
-      .side-nav__item {
-        margin: 0;
-        flex: 0 0 auto;
-      }
-      
-      .side-nav__link {
-        font-size: 0.7rem;
-        line-height: 1.2;
-        opacity: 0.5;
-      }
-      
-      .side-nav__link.active {
-        opacity: 1;
-      }
-      
-      .side-nav__link:hover {
-        opacity: 1;
-      }
-      
-      /* Adjust arrows */
-      #nav-arrows {
-        bottom: var(--space-sm);
-        gap: 0.75rem;
-      }
-      
-      .nav-arrow {
-        width: 2.5rem;
-        height: 2.5rem;
-        font-size: 1rem;
-      }
+      :root { --space-md: 1.5rem; --space-lg: 3rem; }
+      main { padding: 0 var(--space-sm); padding-right: 3rem; }
+      section { min-height: 88vh; padding: var(--space-lg) 0; }
+      #side-nav { top: 0; right: 0.5rem; bottom: 0; transform: none; display: flex; align-items: stretch; padding: var(--space-md) 0; max-height: 100vh; }
+      #side-nav__list { display: flex; flex-direction: column; justify-content: space-evenly; align-items: flex-end; height: 100%; }
+      .side-nav__item { margin: 0; }
+      .side-nav__link .label { display: none; }
+      #nav-arrows { bottom: var(--space-sm); }
+      .nav-arrow { width: 2.4rem; height: 2.4rem; }
     }
-    
-    @media (max-width: 480px) {
-      main {
-        padding-right: 3rem;
-      }
-      
-      #side-nav {
-        right: 0.25rem;
-        padding: var(--space-sm) 0;
-      }
-      
-      .side-nav__link {
-        font-size: 0.65rem;
-      }
-      
-      .nav-arrow {
-        width: 2.25rem;
-        height: 2.25rem;
-      }
-    }
-    
-    /* ========================================
-       PRINT
-       ======================================== */
-    
+
     @media print {
-      #side-nav,
-      #nav-arrows {
-        display: none;
-      }
-      
-      section {
-        min-height: auto;
-        page-break-after: always;
-      }
+      #side-nav, #nav-arrows, #progress, body::before { display: none; }
+      section { min-height: auto; page-break-after: always; padding: 2rem 0; }
+      .eyebrow { color: #000; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Right-side navigation -->
-  <nav id="side-nav" aria-label="Page navigation" role="navigation">
-    <ul id="side-nav__list">
-      <!-- Populated by JavaScript -->
-    </ul>
+  <div id="progress"></div>
+
+  <nav id="side-nav" aria-label="Page navigation">
+    <ul id="side-nav__list"></ul>
   </nav>
 
-  <!-- Main content -->
-  <main id="main-content" role="main">
-    <!-- Sections injected here by JavaScript -->
-  </main>
+  <main id="main-content" role="main"></main>
 
-  <!-- Footer -->
-  <footer id="footer" role="contentinfo">
-    <p>© Gardener & Son<br>Made slowly</p>
+  <footer role="contentinfo">
+    <p>© Gardener &amp; Son<br>Made slowly</p>
   </footer>
 
-  <!-- Navigation arrows -->
-  <div id="nav-arrows" role="navigation" aria-label="Section navigation">
+  <div id="nav-arrows" aria-label="Section navigation">
     <button class="nav-arrow nav-arrow--up" id="prev-section" aria-label="Previous section">↑</button>
     <button class="nav-arrow nav-arrow--down" id="next-section" aria-label="Next section">↓</button>
   </div>
 
   <script>
-    // ========================================
-    // FIELD GUIDE — PRODUCTION VERSION
-    // Award-worthy implementation
-    // ========================================
-    
     'use strict';
-    
+
+    /* ------------------------------------------------------------------
+       CONTENT
+       Inlined here so this file previews standalone. In production keep
+       your slides.json fetch — the data shape is identical, so you can
+       delete this const and restore `await fetch('slides.json')`.
+    ------------------------------------------------------------------ */
+    const DATA = {
+      slides: [
+        { id:"entry", type:"entry", title:"Gardener & Son", subtitle:"A working book of practice, culture, and care.", action:"Enter" },
+        { id:"what-this-is", heading:"What This Is", body:"This is not a brand document.\nIt is not a manifesto.\nIt is not a sales tool.\n\nThis is a working record of how Gardener & Son thinks, decides, and practices.\n\nIt exists to be read slowly." },
+        { id:"why-it-exists", heading:"Why It Exists", body:"Much of what surrounds us has been rushed, simplified, or extracted.\nLandscapes reduced to surfaces.\nLanguage reduced to persuasion.\nObjects reduced to trend.\n\nGardener & Son exists as a quiet refusal of that momentum — not in protest, but in practice." },
+        { id:"how-to-read", heading:"How to Read This", body:"This is not meant to be consumed quickly.\n\nOpen anywhere.\nPause often.\nLeave and return.\n\nThe work it describes unfolds over time." },
+        { id:"who-we-are", heading:"Who Gardener & Son Is", body:"Gardener & Son is a studio grounded in ecological design, stewardship of land, and long-term responsibility.\n\nWe work slowly on purpose.\nWe care about gardens that outlast us, language that earns trust, and systems that repair rather than extract.\n\nThe work is practical.\nThe thinking runs deep." },
+        { id:"gardens-as-systems", heading:"Gardens as Systems", body:"We understand gardens as systems first, and spaces second.\n\nWater moves before paths appear.\nSoil precedes planting.\nTime is a material like stone or timber.\n\nA garden that settles slowly but strengthens each season is a success." },
+        { id:"culture-as-practice", heading:"Culture as Practice", body:"Culture here is not written on walls.\n\nIt shows up in how decisions are made, how people are treated, how language is used, and what we choose not to do.\n\nCulture is something you practice, not something you announce." },
+        { id:"on-slowness", heading:"On Slowness", body:"Slowness is not indulgence.\nIt is discipline.\n\nMoving slowly allows consequences to surface and meaning to accumulate.\nIn a culture that rewards immediacy, slowness becomes quality control.\n\nWe choose it deliberately." },
+        { id:"on-language", heading:"On Language", body:"Words establish conditions.\n\nWe use language to clarify rather than persuade, to invite rather than impress.\nIf something cannot be said honestly, we say less.\nIf it can be said more simply, we do so.\n\nRestraint becomes a voice over time." },
+        { id:"on-objects", heading:"On Objects", body:"Objects matter because they shape behaviour.\n\nWe choose objects that reward attention — tools and forms meant to be used, worn in, repaired, and kept.\n\nIf something is too precious to be used, it does not belong here." },
+        { id:"on-vessels", heading:"On Vessels and Forms", body:"Some objects arrive already carrying time.\n\nThe vessels and forms in the studio were shaped decades ago, some more than a century past.\nTheir surfaces hold weather, use, and repair.\n\nNothing here is pristine.\nNothing needs to be." },
+        { id:"time-as-material", heading:"Time as Material", body:"Time is the primary material in these forms.\n\nLong exposure has softened edges and revealed structure.\nThese vessels have already proven their durability through use.\n\nNewness would add nothing." },
+        { id:"gardens-as-vessels", heading:"Gardens as Vessels for Time", body:"A garden is also a vessel.\n\nIt holds soil, water, seed, and memory.\nSeasons mark it.\nCare accumulates slowly, or its absence does.\n\nWe design gardens as places where time is allowed to gather." },
+        { id:"ecology-responsibility", heading:"Ecology and Responsibility", body:"Working with living systems requires humility.\n\nEcological knowledge is incomplete and contextual.\nWe understate rather than exaggerate, and design for resilience rather than control.\n\nCare here is procedural, not performative." },
+        { id:"ecological-economy", heading:"The Emerging Ecological Economy", body:"Ecological care is becoming visible, measurable, and economically relevant.\n\nThis shift is not ideological — it is structural.\nAs systems destabilise, the value of functioning landscapes becomes unavoidable.\n\nGardener & Son works within this transition carefully." },
+        { id:"invisible-visible", heading:"Making the Invisible Visible", body:"Much of our systems work exists to make care legible.\n\nWhen ecological effort is named and tracked over time, it can be protected and supported.\nVisibility here is not exposure, but recognition.\n\nStewardship becomes acknowledged rather than assumed." },
+        { id:"systems-thinking", heading:"Systems Thinking", body:"We design gardens, but we also design ways of understanding them.\n\nWorking between ground practice and abstract systems allows ideas to be tested in real soil before being encoded elsewhere.\n\nTheory here is always answerable to practice." },
+        { id:"clients-collaboration", heading:"Clients and Collaboration", body:"We work best with people who are curious, patient, and open to learning.\n\nClients are participants in a process, not recipients of a service.\nTrust is built slowly, then maintained carefully.\n\nLong relationships matter more than quick wins." },
+        { id:"growth-money-limits", heading:"Growth, Money, and Limits", body:"Growth is not inherently virtuous.\n\nSome things are better kept small.\nLimits are not failures — they are design constraints.\n\nWe aim for durability rather than scale for its own sake." },
+        { id:"the-studio", heading:"The Studio", body:"The studio is a working place, not a showroom.\n\nTools are present.\nBooks are used.\nConversations matter.\n\nVisitors often sense something before they can describe it." },
+        { id:"on-time", heading:"On Time", body:"Much of what we build will not resolve quickly.\n\nSome outcomes will only be visible years from now.\nTime is not an obstacle to manage, but a collaborator to work with.\n\nSuccess here is measured by longevity." },
+        { id:"this-is-ongoing", heading:"This Is Ongoing", body:"Gardener & Son is an ongoing practice.\n\nShaped by land, people, mistakes, revisions, and patience.\n\nIf you are reading this, you are part of that field — even briefly." }
+      ]
+    };
+
     let sectionsData = [];
     let currentSection = 0;
     let totalSections = 0;
-    let isScrolling = false;
-    let scrollTimeout;
-    
-    // ========================================
-    // INITIALIZATION
-    // ========================================
-    
-    async function init() {
-      try {
-        const response = await fetch('slides.json');
-        
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        sectionsData = data.slides;
-        totalSections = sectionsData.length;
-        
-        buildSections(sectionsData);
-        buildSideNav(sectionsData);
-        setupScrollTracking();
-        setupArrowNavigation();
-        setupKeyboardNavigation();
-        updateArrowStates();
-        
-        // Subtle entrance animation
-        document.body.style.opacity = '0';
-        requestAnimationFrame(() => {
-          document.body.style.transition = 'opacity 600ms ease';
-          document.body.style.opacity = '1';
-        });
-        
-      } catch (error) {
-        console.error('Failed to load content:', error);
-        showErrorState();
-      }
+
+    function init() {
+      sectionsData = DATA.slides;
+      totalSections = sectionsData.length;
+      buildSections(sectionsData);
+      buildSideNav(sectionsData);
+      setupScrollTracking();
+      setupArrows();
+      setupKeyboard();
+      setupProgress();
+      updateArrowStates();
+
+      document.body.style.opacity = '0';
+      requestAnimationFrame(() => {
+        document.body.style.transition = 'opacity 600ms ease';
+        document.body.style.opacity = '1';
+      });
     }
-    
-    function showErrorState() {
-      const main = document.getElementById('main-content');
-      main.innerHTML = `
-        <section style="text-align: center;">
-          <div class="section__content">
-            <h2>Unable to Load Content</h2>
-            <p>Please refresh the page or check your connection.</p>
-          </div>
-        </section>
-      `;
-    }
-    
-    // ========================================
-    // BUILD SECTIONS
-    // ========================================
-    
+
+    function pad(n){ return String(n).padStart(2,'0'); }
+
     function buildSections(sections) {
       const main = document.getElementById('main-content');
-      const fragment = document.createDocumentFragment();
-      
+      const frag = document.createDocumentFragment();
+
       sections.forEach((section, index) => {
-        const sectionEl = document.createElement('section');
-        sectionEl.id = `section-${index}`;
-        sectionEl.setAttribute('data-section-index', index);
-        
-        if (section.type) {
-          sectionEl.classList.add(`section--${section.type}`);
-        }
-        
+        const el = document.createElement('section');
+        el.id = `section-${index}`;
+        el.setAttribute('data-section-index', index);
+        if (section.type) el.classList.add(`section--${section.type}`);
+
         const content = document.createElement('div');
         content.className = 'section__content';
-        
+
         if (section.type === 'entry') {
-          const title = document.createElement('h1');
-          title.textContent = section.title;
-          content.appendChild(title);
-          
+          const h1 = document.createElement('h1');
+          h1.textContent = section.title;
+          content.appendChild(h1);
+
+          const rule = document.createElement('div');
+          rule.className = 'cover-rule';
+          content.appendChild(rule);
+
           if (section.subtitle) {
-            const subtitle = document.createElement('p');
-            subtitle.textContent = section.subtitle;
-            content.appendChild(subtitle);
+            const sub = document.createElement('p');
+            sub.className = 'cover-sub';
+            sub.textContent = section.subtitle;
+            content.appendChild(sub);
           }
-          
           if (section.action) {
-            const button = document.createElement('a');
-            button.className = 'enter-button';
-            button.textContent = section.action;
-            button.href = '#section-1';
-            button.setAttribute('role', 'button');
-            content.appendChild(button);
+            const btn = document.createElement('a');
+            btn.className = 'enter-button';
+            btn.textContent = section.action;
+            btn.href = '#section-1';
+            btn.setAttribute('role','button');
+            content.appendChild(btn);
           }
         } else {
+          const eyebrow = document.createElement('div');
+          eyebrow.className = 'eyebrow';
+          eyebrow.textContent = `Field Guide · §${pad(index)}`;
+          content.appendChild(eyebrow);
+
           if (section.heading) {
-            const heading = document.createElement('h2');
-            heading.textContent = section.heading;
-            content.appendChild(heading);
+            const h2 = document.createElement('h2');
+            h2.textContent = section.heading;
+            content.appendChild(h2);
           }
-          
           if (section.body) {
-            const paragraphs = section.body.split('\n\n');
-            paragraphs.forEach(para => {
+            section.body.split('\n\n').forEach(para => {
               const p = document.createElement('p');
               p.innerHTML = para.split('\n').join('<span class="line-break"></span>');
               content.appendChild(p);
             });
           }
         }
-        
-        sectionEl.appendChild(content);
-        fragment.appendChild(sectionEl);
+        el.appendChild(content);
+        frag.appendChild(el);
       });
-      
-      main.appendChild(fragment);
+      main.appendChild(frag);
     }
-    
-    // ========================================
-    // BUILD NAVIGATION
-    // ========================================
-    
+
     function buildSideNav(sections) {
-      const navList = document.getElementById('side-nav__list');
-      const fragment = document.createDocumentFragment();
-      
+      const list = document.getElementById('side-nav__list');
+      const frag = document.createDocumentFragment();
       sections.forEach((section, index) => {
         const li = document.createElement('li');
         li.className = 'side-nav__item';
-        
         const link = document.createElement('a');
         link.className = 'side-nav__link';
         link.href = `#section-${index}`;
         link.setAttribute('data-section-index', index);
-        
+
+        const num = document.createElement('span');
+        num.className = 'num';
+        const label = document.createElement('span');
+        label.className = 'label';
+
         if (section.type === 'entry') {
-          link.textContent = section.title || 'Entry';
+          num.textContent = '—';
+          label.textContent = 'Cover';
         } else {
-          const number = index;
-          const title = section.heading || `Section ${index + 1}`;
-          link.textContent = `${number} · ${title}`;
+          num.textContent = pad(index);
+          label.textContent = section.heading || `Section ${index}`;
         }
-        
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          navigateToSection(index);
-        });
-        
+        link.appendChild(num);
+        link.appendChild(label);
+        link.addEventListener('click', (e) => { e.preventDefault(); navigateTo(index); });
         li.appendChild(link);
-        fragment.appendChild(li);
+        frag.appendChild(li);
       });
-      
-      navList.appendChild(fragment);
+      list.appendChild(frag);
     }
-    
-    // ========================================
-    // SCROLL TRACKING
-    // ========================================
-    
+
     function setupScrollTracking() {
-      const options = {
-        root: null,
-        rootMargin: '-45% 0px -45% 0px',
-        threshold: 0
-      };
-      
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            const sectionIndex = parseInt(entry.target.getAttribute('data-section-index'));
-            updateActiveSection(sectionIndex);
+            updateActive(parseInt(entry.target.getAttribute('data-section-index')));
           }
         });
-      }, options);
-      
-      document.querySelectorAll('section').forEach(section => {
-        observer.observe(section);
-      });
+      }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+      document.querySelectorAll('section').forEach(s => observer.observe(s));
     }
-    
-    function updateActiveSection(sectionIndex) {
-      currentSection = sectionIndex;
-      
-      const links = document.querySelectorAll('.side-nav__link');
-      links.forEach((link, index) => {
-        if (index === sectionIndex) {
-          link.classList.add('active');
-          link.setAttribute('aria-current', 'page');
-        } else {
-          link.classList.remove('active');
-          link.removeAttribute('aria-current');
-        }
-      });
-      
-      updateArrowStates();
-    }
-    
-    // ========================================
-    // ARROW NAVIGATION
-    // ========================================
-    
-    function setupArrowNavigation() {
-      const prevBtn = document.getElementById('prev-section');
-      const nextBtn = document.getElementById('next-section');
-      
-      prevBtn.addEventListener('click', () => {
-        if (currentSection > 0) {
-          navigateToSection(currentSection - 1);
-        }
-      });
-      
-      nextBtn.addEventListener('click', () => {
-        if (currentSection < totalSections - 1) {
-          navigateToSection(currentSection + 1);
-        }
-      });
-    }
-    
-    function setupKeyboardNavigation() {
-      document.addEventListener('keydown', (e) => {
-        // Don't intercept if user is typing in an input
-        if (e.target.matches('input, textarea, select')) return;
-        
-        if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-          if (currentSection < totalSections - 1) {
-            e.preventDefault();
-            navigateToSection(currentSection + 1);
-          }
-        } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-          if (currentSection > 0) {
-            e.preventDefault();
-            navigateToSection(currentSection - 1);
-          }
-        } else if (e.key === 'Home') {
-          e.preventDefault();
-          navigateToSection(0);
-        } else if (e.key === 'End') {
-          e.preventDefault();
-          navigateToSection(totalSections - 1);
-        }
-      });
-    }
-    
-    function navigateToSection(index) {
-      if (index < 0 || index >= totalSections) return;
-      
-      const targetSection = document.getElementById(`section-${index}`);
-      if (!targetSection) return;
-      
+
+    function updateActive(index) {
       currentSection = index;
-      targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelectorAll('.side-nav__link').forEach((link, i) => {
+        link.classList.toggle('active', i === index);
+        if (i === index) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current');
+      });
       updateArrowStates();
-      
-      // Update URL hash without triggering scroll
+    }
+
+    function setupProgress() {
+      const bar = document.getElementById('progress');
+      const onScroll = () => {
+        const h = document.documentElement;
+        const max = h.scrollHeight - h.clientHeight;
+        bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+
+    function setupArrows() {
+      document.getElementById('prev-section').addEventListener('click', () => { if (currentSection > 0) navigateTo(currentSection - 1); });
+      document.getElementById('next-section').addEventListener('click', () => { if (currentSection < totalSections - 1) navigateTo(currentSection + 1); });
+    }
+
+    function setupKeyboard() {
+      document.addEventListener('keydown', (e) => {
+        if (e.target.matches('input, textarea, select')) return;
+        if (e.key === 'ArrowDown' || e.key === 'PageDown') { if (currentSection < totalSections - 1) { e.preventDefault(); navigateTo(currentSection + 1); } }
+        else if (e.key === 'ArrowUp' || e.key === 'PageUp') { if (currentSection > 0) { e.preventDefault(); navigateTo(currentSection - 1); } }
+        else if (e.key === 'Home') { e.preventDefault(); navigateTo(0); }
+        else if (e.key === 'End') { e.preventDefault(); navigateTo(totalSections - 1); }
+      });
+    }
+
+    function navigateTo(index) {
+      if (index < 0 || index >= totalSections) return;
+      const target = document.getElementById(`section-${index}`);
+      if (!target) return;
+      currentSection = index;
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      updateArrowStates();
       history.replaceState(null, null, `#section-${index}`);
     }
-    
+
     function updateArrowStates() {
-      const prevBtn = document.getElementById('prev-section');
-      const nextBtn = document.getElementById('next-section');
-      
-      if (prevBtn && nextBtn) {
-        prevBtn.disabled = currentSection === 0;
-        nextBtn.disabled = currentSection === totalSections - 1;
+      const prev = document.getElementById('prev-section');
+      const next = document.getElementById('next-section');
+      if (prev && next) {
+        prev.disabled = currentSection === 0;
+        next.disabled = currentSection === totalSections - 1;
       }
     }
-    
-    // ========================================
-    // INITIALIZE ON LOAD
-    // ========================================
-    
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
-    } else {
-      init();
-    }
-    
-    // Handle browser back/forward
+
     window.addEventListener('hashchange', () => {
       const hash = window.location.hash;
       if (hash.startsWith('#section-')) {
-        const index = parseInt(hash.replace('#section-', ''));
-        if (!isNaN(index) && index >= 0 && index < totalSections) {
-          currentSection = index;
-          updateActiveSection(index);
-        }
+        const index = parseInt(hash.replace('#section-',''));
+        if (!isNaN(index) && index >= 0 && index < totalSections) updateActive(index);
       }
     });
-  </script>
 
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+  </script>
 </body>
 </html>
