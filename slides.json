@@ -9,6 +9,12 @@
       "action": "Enter"
     },
     {
+      "id": "acknowledgement",
+      "type": "ack",
+      "heading": "Acknowledgement of Country",
+      "body": "At Gardener & Son, we acknowledge the Wurundjeri Woi Wurrung people of the Kulin Nation, the Traditional Custodians of the land on which we live and work.\n\nWe honour their enduring connection to Country — and the grasslands, woodlands, and wetlands that once flourished here through generations of care and balance.\nThese living systems were not lost to time, but to disconnection.\n\nOur work seeks to rekindle that relationship, restoring native ecologies and weaving biodiversity back into the urban fabric — each garden a quiet act of remembrance and renewal."
+    },
+    {
       "id": "what-this-is",
       "heading": "What *This* Is",
       "body": "This is not a brand document.\nIt is not a manifesto.\nIt is not a sales tool.\n\nThis is a working record of how Gardener & Son thinks, decides, and practices.\n\nIt exists to be read slowly."
@@ -34,6 +40,41 @@
       "body": "We understand gardens as systems first, and spaces second.\n\nWater moves before paths appear.\nSoil precedes planting.\nTime is a material like stone or timber.\n\nA garden that settles slowly but strengthens each season is a success."
     },
     {
+      "id": "of-this-place",
+      "heading": "Of This *Place*",
+      "body": "Every address is part of Country.\n\nBefore the fences and lawns, this ground held grassland, woodland, or wetland — a community of plants shaped by soil, water, and generations of care.\nWe begin by finding out which.\n\nWe plant what belongs here.\nNot as a style, but as a return."
+    },
+    {
+      "id": "reading-the-ground",
+      "heading": "Reading the *Ground*",
+      "body": "Before we draw anything, we read the site.\n\nWhere the land falls.\nWhere water gathers after rain, and where it leaves.\nWhere the winter sun lands.\n\nTopography and hydrology set the design long before we do."
+    },
+    {
+      "id": "soil-and-water",
+      "heading": "Soil and *Water*",
+      "body": "Soil is the garden's first structure.\n\nWe build it rather than replace it — covered, fed, and left undisturbed wherever we can.\nWater is slowed, spread, and sunk into the ground rather than piped away.\nNo poisons.\n\nHealthy soil holds water. Held water grows life."
+    },
+    {
+      "id": "planting",
+      "heading": "*Planting*",
+      "body": "We plant in communities, not specimens.\n\nCanopy, shrub, and ground layer.\nGrasses, herbs, and climbers.\nMany species, in the numbers the place once held.\n\nPlanting is set out on site, with the plants in hand.\nThe ground decides the final placement."
+    },
+    {
+      "id": "habitat",
+      "heading": "*Habitat*",
+      "body": "A garden is someone's home before it is ours.\n\nLogs left to soften.\nRocks that hold warmth.\nDense shrubs for small birds, flowers through the seasons for insects, water at ground level.\n\nWe design for the creatures that arrive unasked."
+    },
+    {
+      "id": "connection",
+      "heading": "*Connection*",
+      "body": "One garden is a refuge.\nMany gardens are a corridor.\n\nWhen neighbouring gardens are planted from the same Country, birds and insects move between them, and the suburb begins to function as habitat again.\n\nThere are more gardens than parkland.\nThat is where the opportunity lies."
+    },
+    {
+      "id": "measuring",
+      "heading": "Measuring What *Matters*",
+      "body": "Care that goes unrecorded is easily undone.\n\nThe Ecological Registry records each garden against the same pillars — biodiversity, soil and water, habitat, connectivity, and evidence — and follows it over time.\n\nWhen we change what we value, we change what we measure.\nWhat we measure, we improve."
+    },
+    {
       "id": "culture-as-practice",
       "heading": "Culture as *Practice*",
       "body": "Culture here is not written on walls.\n\nIt shows up in how decisions are made, how people are treated, how language is used, and what we choose not to do.\n\nCulture is something you practice, not something you announce."
@@ -56,12 +97,7 @@
     {
       "id": "on-vessels",
       "heading": "On *Vessels* and Forms",
-      "body": "Some objects arrive already carrying time.\n\nThe vessels and forms in the studio were shaped decades ago, some more than a century past.\nTheir surfaces hold weather, use, and repair.\n\nNothing here is pristine.\nNothing needs to be."
-    },
-    {
-      "id": "time-as-material",
-      "heading": "*Time* as Material",
-      "body": "Time is the primary material in these forms.\n\nLong exposure has softened edges and revealed structure.\nThese vessels have already proven their durability through use.\n\nNewness would add nothing."
+      "body": "Some objects arrive already carrying time.\n\nThe vessels and forms in the studio were shaped decades ago, some more than a century past.\nTheir surfaces hold weather, use, and repair.\nLong exposure has softened their edges and revealed their structure.\n\nNothing here is pristine.\nNewness would add nothing."
     },
     {
       "id": "gardens-as-vessels",
