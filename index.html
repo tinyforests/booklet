@@ -134,6 +134,8 @@
       padding-left: 2.25rem;
       border-left: 1px solid var(--margin-rule);
     }
+    /* Entries sit high on the page, like notes written from the top */
+    section.section--note { justify-content: flex-start; padding-top: clamp(4rem, 13vh, 7.5rem); }
     .section__content { width: 100%; max-width: 34rem; position: relative; }
 
     /* Hanging entry number in the margin */
@@ -322,7 +324,7 @@
       :root { --gutter: 2.4rem; --space-md: 1.5rem; --space-lg: 3rem; }
       main { padding: 0 1rem; padding-right: 2.75rem; }
       section { min-height: 88vh; padding: var(--space-lg) 0; }
-      section.section--note { padding-left: 1.25rem; }
+      section.section--note { padding-left: 1.25rem; padding-top: 3.5rem; }
       .margin-num { right: calc(100% + 1.25rem + 0.55rem); font-size: 1.35rem; top: 0.05rem; }
       .folio { letter-spacing: 0.14em; }
       .folio .series { display: none; }
