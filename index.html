@@ -233,6 +233,7 @@
       letter-spacing: -0.01em;
     }
     h1 .amp { font-family: var(--font-display); font-style: normal; font-weight: 400; }
+    .cover-logo img { display: block; width: min(25rem, 76vw); height: auto; margin: 0 auto 1.4rem; }
     .cover-title {
       font-family: var(--font-serif);
       font-style: italic;
@@ -427,7 +428,7 @@
         if (section.type === 'entry') {
           content.innerHTML = `
             <div class="cover-mark">Field Guide</div>
-            <h1>${richHeading(section.title)}</h1>
+            <h1 class="cover-logo"><img src="logo-gardener-green.png" alt="${esc(section.title)}" width="1121" height="518"></h1>
             <div class="cover-title">Notes on practice</div>
             <div class="cover-rule"></div>
             ${section.subtitle ? `<p class="cover-sub">${esc(section.subtitle)}</p>` : ''}
